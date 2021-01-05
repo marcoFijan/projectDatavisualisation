@@ -241,7 +241,7 @@ function setScales(data) {
     .scaleBand()
     .domain(data.map(valueX)) // Select all the provinces for the domain
     .range([0, innerWidth])
-    .padding(0.2);
+    .padding(0.3);
 }
 
 // Set the axisses for the chart

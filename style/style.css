@@ -1,5 +1,162 @@
+body {
+  margin: 0;
+  background: #f1f1f1;
+}
+
+/* ########################### - Header styling - ############################ */
+header {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  padding: 1em 0;
+  background: white;
+  -webkit-box-shadow: 0px 5px 10px 0px #cacaca;
+  box-shadow: 0px 3px 10px 0px #cacaca;
+  width: 100%;
+  z-index: 2;
+}
+
+header > img {
+  width: 5em;
+  height: 5em;
+  margin: 0 auto;
+}
+
+header > nav {
+  width: 16em;
+  display: flex;
+  align-items: center;
+}
+
+header > div {
+  width: 16em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+header > nav ul {
+  display: flex;
+  list-style: none;
+  flex-direction: row;
+  width: 10em;
+}
+
+header > nav ul li {
+  padding: 0.5em 1em;
+}
+
+.avatar {
+  background: rgb(196, 196, 196);
+  border-radius: 1.5em;
+  height: 3em;
+  width: 3em;
+  margin-right: 1em;
+}
+
+main {
+  padding: 2em;
+}
+/* ########################### - D3 styling - ############################ */
 svg {
-  width: 1000px;
+  width: 500px;
   height: 400px;
-  background: #cfcfcf;
+}
+
+svg text {
+  fill: black;
+  font-size: 1.1em;
+}
+
+.xAxisName,
+.yAxisName {
+  font-size: 1.5em;
+}
+
+.yAxisName {
+  text-anchor: middle;
+}
+
+.contentWrapper {
+  width: 55em;
+}
+
+/* ########################### - durationChart styling - ############################ */
+.durationChartWrapper {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  color: #2a292f;
+  background: white;
+  -webkit-box-shadow: 0px 0px 10px 2px #cacaca;
+  box-shadow: 0px 0px 10px 2px #cacaca;
+  border-radius: 0.2em;
+}
+
+.durationChartWrapper > form {
+  border-radius: 1em;
+  padding: 0 1em;
+  max-width: 16em;
+}
+
+.durationChartWrapper > form ul {
+  list-style: none;
+  padding: 0;
+}
+
+.durationChartWrapper > form ul li {
+  padding: 0.5em 0;
+  display: flex;
+  align-items: center;
+}
+
+.durationChartWrapper > form ul li p,
+.durationChartWrapper > form ul li label {
+  margin: 0;
+  padding-left: 1em;
+}
+
+.durationChartWrapper > form ul li label:hover,
+a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.filterUnknownBox,
+.filterBigBarBox {
+  width: 1em;
+  height: 1em;
+  border: 1px solid #2a292f;
+  flex-shrink: 0;
+  background: white;
+}
+
+input[type="checkbox"]:checked + label {
+  color: #f57624;
+  font-weight: bold;
+}
+
+.durationChartWrapper h2 {
+  border-bottom: 1px solid #2a292f;
+  font-size: 1.1em;
+}
+
+.longDurationColor,
+.mediumDurationColor,
+.shortDurationColor {
+  width: 1.3em;
+  height: 2.2em;
+  flex-shrink: 0;
+}
+
+.longDurationColor {
+  background: #054488;
+}
+
+.mediumDurationColor {
+  background: #d22f30;
+}
+
+.shortDurationColor {
+  background: #f48a14;
 }

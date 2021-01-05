@@ -9,7 +9,72 @@
   <body>
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <script src="https://unpkg.com/topojson@3.0.2/dist/topojson.js"></script>
-    <svg></svg>
-    <script src="scripts/script.js"></script>
+
+    <header>
+      <nav>
+        <ul>
+          <li>Dashboard</li>
+          <li>Kaart</li>
+          <li>Feedback</li>
+        </ul>
+      </nav>
+      <img src="resources/logo.svg" alt="Ring Ring logo" />
+      <div>
+        <div class="avatar"></div>
+        <p>Jan van Straten</p>
+      </div>
+    </header>
+
+    <main>
+      <div class="contentWrapper">
+        <div class="dashboardButtons">
+          <button>For You</button>
+          <button>Kaart</button>
+          <button>Feedback</button>
+        </div>
+        <div class="durationChartWrapper">
+          <svg></svg>
+          <form>
+            <h2>Filter</h2>
+            <ul>
+              <li>
+                <input
+                  type="checkbox"
+                  id="filterUnknown"
+                  name="filterUnknown"
+                />
+                <label for="filterUnknown"
+                  >Verwijder onbekende locatie data</label
+                >
+              </li>
+              <li>
+                <input type="checkbox" id="filterBigBar" name="filterBigBar" />
+                <label for="filterBigBar"
+                  >Verwijder provincie met de meeste parkeerplaatsen</label
+                >
+              </li>
+            </ul>
+            <h2>Legenda</h2>
+            <ul>
+              <li class="legendaItem">
+                <div class="longDurationColor"></div>
+                <p>Langer dan 30 minuten onderweg</p>
+              </li>
+              <li class="legendaItem">
+                <div class="mediumDurationColor"></div>
+                <p>Tussen de 5 en 30 minuten onderweg</p>
+              </li>
+              <li class="legendaItem">
+                <div class="shortDurationColor"></div>
+                <p>Korter dan 5 minuten onderweg</p>
+              </li>
+            </ul>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <footer></footer>
+    <script src="scripts/durationChart.js"></script>
   </body>
 </html>
