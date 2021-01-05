@@ -226,7 +226,7 @@ function setScales(data) {
   colorScale = d3
     .scaleOrdinal()
     .domain(["shortDuration", "mediumDuration", "longDuration"])
-    .range(["#F48A14", "#D22F30", "#054488"]);
+    .range(["#F48A14", "#BE3027", "#054488"]);
 
   scaleY = d3
     .scaleLinear()

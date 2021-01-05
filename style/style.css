@@ -54,9 +54,56 @@ header > nav ul li {
   margin-right: 1em;
 }
 
+/* ########################### - main content styling - ############################ */
+.contentWrapper {
+  max-width: 55em;
+  flex-grow: 1;
+}
+
 main {
   padding: 2em;
+  display: flex;
+  flex-direction: row;
 }
+
+.dashboardButtons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1em;
+}
+
+.dashboardButton {
+  flex-grow: 1;
+  height: 9em;
+  max-width: 21em;
+  background: rgb(190, 48, 39);
+  background: linear-gradient(
+    90deg,
+    rgba(190, 48, 39, 1) 0%,
+    rgba(218, 80, 71, 1) 100%
+  );
+  border: none;
+  -webkit-box-shadow: 0px 0px 10px 2px #cacaca;
+  box-shadow: 0px 0px 10px 2px #cacaca;
+  color: white;
+}
+
+.dashboardButton > img {
+  max-height: 4.5em;
+}
+
+/* ########################### - sidebar content styling - ############################ */
+.sidebar {
+  min-width: 15em;
+  background: white;
+  min-height: 5em;
+  flex-grow: 1;
+  margin-left: 1em;
+  -webkit-box-shadow: 0px 0px 10px 2px #cacaca;
+  box-shadow: 0px 0px 10px 2px #cacaca;
+}
+
 /* ########################### - D3 styling - ############################ */
 svg {
   width: 500px;
@@ -75,10 +122,6 @@ svg text {
 
 .yAxisName {
   text-anchor: middle;
-}
-
-.contentWrapper {
-  width: 55em;
 }
 
 /* ########################### - durationChart styling - ############################ */
@@ -154,7 +197,7 @@ input[type="checkbox"]:checked + label {
 }
 
 .mediumDurationColor {
-  background: #d22f30;
+  background: #be3027;
 }
 
 .shortDurationColor {
