@@ -27,6 +27,7 @@ const timeStampsList = [
   "12:00-14:00",
   "14:00-16:00",
   "16:00-18:00",
+  "18:00-20:00",
   "20:00-22:00",
   "22:00-24:00",
 ];
@@ -77,7 +78,10 @@ function setupData() {
           longDuration: getLongDurationPerTimestamp(filteredTimestamp),
         };
       });
-      createDiagram(durationPerTimestamp);
+      data = durationPerTimestamp;
+      filteredData = durationPerTimestamp;
+      console.log(data);
+      createDiagram();
       initMap(ringRingFetchedData);
     });
 }
@@ -204,26 +208,24 @@ function getTimeStamp(ringRingFeatures) {
   });
 }
 
-function countTimestamp() {}
-
-function createDiagram(data) {
+function createDiagram() {
   const svg = d3.select("svg");
   g = svg
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   // Define d3 variables
-  stackedBars = stackGenerator(data);
+  stackedBars = stackGenerator(filteredData);
 
   // Create Diagram
-  setScales(data);
+  setScales();
   setAxises();
   drawBar();
-  // checkInput();
+  checkInput();
 }
 
 // Set the scales for the chart
-function setScales(data) {
+function setScales() {
   colorScale = d3
     .scaleOrdinal()
     .domain(["shortDuration", "mediumDuration", "longDuration"])
@@ -312,6 +314,104 @@ function drawBar() {
     .attr("height", (d) => scaleY(d[0]) - scaleY(d[1]));
 }
 
+const checkInput = function () {
+  // SOURCE FOR GENERAL IDEA FROM LAURENS AARNOUDSE: https://vizhub.com/Razpudding/c2a9c9b4fde84816931c404951c79873?edit=files&file=index.js
+  const bigBarFilter = d3.select("#filterBigBars").on("click", filterBigBars);
+  const unknownFilter = d3
+    .select("#filterUnknown")
+    .on("click", filterUnknownProvince);
+};
+
+// ## Update function for removing the bigest bar ##
+const filterBigBars = function () {
+  let filterOn = d3.select("#filterBigBars")._groups[0][0].checked;
+  console.log(filterOn);
+  if (filterOn) {
+    let total = 0;
+    data.forEach((route) => {
+      total =
+        total + route.longDuration + route.mediumDuration + route.shortDuration;
+    });
+    let average = total / timeStampsList.length;
+
+    filteredData = data.filter((route) => {
+      const total =
+        route.shortDuration + route.mediumDuration + route.longDuration;
+      return total <= average;
+    });
+  } else {
+    filteredData = data;
+    if (d3.select("#filterUnknown")._groups[0][0].checked) {
+      filterUnknownProvince();
+    }
+    // checkInput()
+  }
+  updateBars();
+};
+
+// ## Update function for removing the unknown province bar ##
+const filterUnknownProvince = function () {
+  let filterOn = d3.select("#filterUnknown")._groups[0][0].checked;
+  if (filterOn) {
+    filteredData = filteredData.filter(
+      (province) => province.province !== "onbekend"
+    ); // return array without that highestCapacity
+    console.log("filter", filteredData);
+  } else {
+    filteredData = data;
+    if (d3.select("#filterBigBars")._groups[0][0].checked) {
+      filterBigBars();
+    }
+    // checkInput()
+  }
+  updateBars();
+};
+
+// ## General update function ##
+const updateBars = function () {
+  stackedBars = stackGenerator(filteredData);
+  setScales(filteredData);
+
+  // Save the layers and collection of bars into variables
+  const layers = svg.selectAll(".layer").data(stackedBars);
+  const bars = layers.selectAll("rect").data((d) => d);
+
+  // Update the layers and rectangles
+  bars
+    .attr("x", (d) => scaleX(d.data.timeStamp))
+    .attr("y", (d) => scaleY(d[1]))
+    .attr("width", scaleX.bandwidth())
+    .attr("height", 0) // set height 0 for the transition
+    .transition()
+    .duration(800)
+    .attr("height", (d) => scaleY(d[0]) - scaleY(d[1]));
+
+  // Create new rectangles inside the layers
+  bars
+    .enter()
+    .append("rect")
+    .attr("x", (d) => scaleX(d.data.timeStamp))
+    .attr("y", (d) => scaleY(d[1]))
+    .attr("width", scaleX.bandwidth())
+    .attr("height", 0) // set height 0 for the transition
+    .transition()
+    .duration(800)
+    .attr("height", (d) => scaleY(d[0]) - scaleY(d[1]));
+
+  // Remove non existing retangles
+  bars.exit().remove();
+
+  // Call the x-axis
+  const callXAxis = svg.select(".xAxis").call(d3.axisBottom(scaleX));
+
+  // callXAxis.selectAll(".tick>text").attr("transform", "rotate(45)");
+
+  callXAxis.selectAll(".domain, .tick line").remove();
+
+  // Call the y-axis
+  svg.select(".yAxis").call(d3.axisLeft(scaleY).tickSize(-innerWidth));
+};
+
 setupData();
 
 // const svg = d3.select("svg");
@@ -350,5 +450,7 @@ function initMap(geoJson) {
     zoom: 4,
     center: { lat: 0, lng: 0 },
   });
-  map.data.loadGeoJson(geoJson);
+  map.data.loadGeoJson(
+    "https://cors-anywhere.herokuapp.com/http://ringring.jorrr.nl/geojson-data-ringring.json"
+  );
 }
