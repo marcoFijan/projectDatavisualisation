@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Overzichtskaart</title>
+    <link rel="stylesheet" href="style/style.css" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1qxpqXbcv6eQyOsfjeex-VjmM_yoIcmI&callback=initMap&libraries=&v=weekly"
+      defer
+    ></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li>Dashboard</li>
+          <li>Kaart</li>
+          <li>Feedback</li>
+        </ul>
+      </nav>
+      <img src="resources/logo.svg" alt="Ring Ring logo" />
+      <div>
+        <div class="avatar"></div>
+        <p>Jan van Straten</p>
+      </div>
+    </header>
+
+    <main>
+      <div class="contentWrapper">
+        <div class="dashboardButtons">
+          <button class="dashboardButton">
+            <img src="resources/placeHolder.svg" alt="For You icon" /> For You
+          </button>
+          <button class="dashboardButton">
+            <img src="resources/placeHolder.svg" alt="Chart icon" />Kaart
+          </button>
+          <button class="dashboardButton">
+            <img src="resources/placeHolder.svg" alt="Feedback icon" />Feedback
+          </button>
+        </div>
+        <div class="durationChartWrapper">
+          <div id="map"></div>
+        </div>
+      </div>
+      <div class="sidebar"></div>
+    </main>
+
+    <footer></footer>
+    <script src="scripts/durationChart.js"></script>
+  </body>
+</html>

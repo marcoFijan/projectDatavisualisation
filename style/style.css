@@ -208,3 +208,9 @@ input[type="checkbox"]:checked + label {
 .shortDurationColor {
   background: #f48a14;
 }
+
+/* ########################### - Map styling - ############################ */
+#map {
+  height: 20em;
+  width: 30em;
+}

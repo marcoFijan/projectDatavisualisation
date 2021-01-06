@@ -78,6 +78,7 @@ function setupData() {
         };
       });
       createDiagram(durationPerTimestamp);
+      initMap(ringRingFetchedData);
     });
 }
 
@@ -341,3 +342,13 @@ setupData();
 //       .text((d) => d.properties.statnaam);
 //   }
 // );
+
+let map;
+
+function initMap(geoJson) {
+  map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 4,
+    center: { lat: 0, lng: 0 },
+  });
+  map.data.loadGeoJson(geoJson);
+}
