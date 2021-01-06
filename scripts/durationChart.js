@@ -218,14 +218,14 @@ function createDiagram() {
   stackedBars = stackGenerator(filteredData);
 
   // Create Diagram
-  setScales();
+  setScales(data);
   setAxises();
   drawBar();
   checkInput();
 }
 
 // Set the scales for the chart
-function setScales() {
+function setScales(data) {
   colorScale = d3
     .scaleOrdinal()
     .domain(["shortDuration", "mediumDuration", "longDuration"])
@@ -402,9 +402,10 @@ const updateBars = function () {
   bars.exit().remove();
 
   // Call the x-axis
+  // Call the x-axis
   const callXAxis = svg.select(".xAxis").call(d3.axisBottom(scaleX));
 
-  // callXAxis.selectAll(".tick>text").attr("transform", "rotate(45)");
+  callXAxis.selectAll(".tick>text").attr("transform", "rotate(45)");
 
   callXAxis.selectAll(".domain, .tick line").remove();
 
