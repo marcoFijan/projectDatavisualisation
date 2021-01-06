@@ -21,8 +21,7 @@ const proxyURL = "https://cors-anywhere.herokuapp.com/";
 const ringRingApi = "http://ringring.jorrr.nl/geojson-data-ringring.json";
 const timeStampsList = [
   "00:00-02:00",
-  "02:00-04:00",
-  "04:00-06:00",
+  "02:00-06:00",
   "08:00-10:00",
   "12:00-14:00",
   "14:00-16:00",
@@ -65,7 +64,7 @@ function setupData() {
       const ringRingFeatures = ringRingFetchedData[0].features;
       console.log(ringRingFeatures);
       const timeStamps = getTimeStamp(ringRingFeatures);
-      const timeStampsAndDuration = durationInMinutes(timeStamps);
+      const timeStampsAndDuration = getDurationInMinutes(timeStamps);
       const durationPerTimestamp = timeStampsList.map((timeStamp) => {
         const filteredTimestamp = filterTimestamp(
           timeStampsAndDuration,
@@ -76,6 +75,7 @@ function setupData() {
           shortDuration: getShortDurationPerTimestamp(filteredTimestamp),
           mediumDuration: getMediumDurationPerTimestamp(filteredTimestamp),
           longDuration: getLongDurationPerTimestamp(filteredTimestamp),
+          averageDistance: getAverageDistance(timeStamp, timeStamps),
         };
       });
       data = durationPerTimestamp;
@@ -119,7 +119,21 @@ function getLongDurationPerTimestamp(timeStampsAndDurationArray) {
   }, 0);
 }
 
-function durationInMinutes(ringRingFeatures) {
+function getAverageDistance(timeStamp, timeStampsList) {
+  const currentTimeStampCollection = timeStampsList.filter(
+    (feature) => feature.timeStamp === timeStamp
+  );
+  const totalDistance = currentTimeStampCollection.reduce((sum, route) => {
+    return sum + route.properties.distance;
+  }, 0);
+  averageDistance = totalDistance / currentTimeStampCollection.length;
+  if (isNaN(averageDistance)) {
+    averageDistance = 0;
+  }
+  return averageDistance;
+}
+
+function getDurationInMinutes(ringRingFeatures) {
   return ringRingFeatures.map((feature) => {
     const duration = feature.properties.duration;
     if (duration <= 5) {
@@ -402,10 +416,12 @@ const updateBars = function () {
   bars.exit().remove();
 
   // Call the x-axis
-  // Call the x-axis
   const callXAxis = svg.select(".xAxis").call(d3.axisBottom(scaleX));
 
-  callXAxis.selectAll(".tick>text").attr("transform", "rotate(45)");
+  callXAxis
+    .selectAll(".tick>text")
+    .attr("transform", "rotate(55)")
+    .attr("text-anchor", "start");
 
   callXAxis.selectAll(".domain, .tick line").remove();
 
