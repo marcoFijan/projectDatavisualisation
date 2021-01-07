@@ -223,7 +223,7 @@ function getTimeStamp(ringRingFeatures) {
 }
 
 function createDiagram() {
-  const svg = d3.select("svg");
+  const svg = d3.select(".durationChart");
   g = svg
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");

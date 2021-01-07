@@ -322,6 +322,10 @@ svg text {
   text-anchor: middle;
 }
 
+line {
+  stroke: #dbdbdb;
+}
+
 /* ########################### - durationChart styling - ############################ */
 .durationChartWrapper {
   display: flex;
@@ -335,8 +339,9 @@ svg text {
 }
 
 .durationChartWrapper > form {
-  border-radius: 1em;
-  padding: 0 1em;
+  margin: 2em 1em 0 1em;
+  border-left: 1px solid #d6d6d6;
+  padding-left: 1em;
   max-width: 16em;
 }
 
@@ -355,6 +360,7 @@ svg text {
 .durationChartWrapper > form ul li label {
   margin: 0;
   padding-left: 1em;
+  font-size: 0.85em;
 }
 
 .durationChartWrapper > form ul li label:hover,
@@ -373,13 +379,14 @@ a:hover {
 }
 
 input[type="checkbox"]:checked + label {
-  color: #f57624;
+  color: #be3027;
   font-weight: bold;
 }
 
 .durationChartWrapper h2 {
-  border-bottom: 1px solid #2a292f;
-  font-size: 1.1em;
+  border-bottom: 1px solid #e2e2e2;
+  margin-top: 0;
+  font-size: 1em;
 }
 
 .longDurationColor,
