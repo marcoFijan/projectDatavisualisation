@@ -122,7 +122,13 @@ strong {
 }
 
 .logInButton {
-  background: #be3027;
+  background: linear-gradient(
+    90deg,
+    rgba(190, 48, 39, 1),
+    rgb(219, 70, 59),
+    rgba(190, 48, 39, 1)
+  );
+  background-size: 200%;
   color: white;
   padding: 1em;
   max-width: 12em;
@@ -130,6 +136,12 @@ strong {
   text-decoration: none;
   text-align: center;
   margin-top: 2em;
+  transition: all 0.5s ease-in;
+  border-radius: 0.2em;
+}
+
+.logInButton:hover {
+  background-position: right;
 }
 
 .forgotPassword {
@@ -182,12 +194,34 @@ header > nav ul li {
   padding: 0.5em 1em;
 }
 
+header > div > div {
+  display: flex;
+  flex-direction: column;
+}
+
+header > div > div p {
+  margin: 0;
+}
+
+header > div > div a {
+  color: #be3027;
+  text-decoration: none;
+}
+
+header > div > div a:hover {
+  color: #be3027;
+  font-weight: bold;
+  text-decoration: none;
+}
+
 .avatar {
   background: rgb(196, 196, 196);
   border-radius: 1.5em;
   height: 3em;
   width: 3em;
   margin-right: 1em;
+  padding-top: 0.5em;
+  box-sizing: border-box;
 }
 
 /* ########################### - main content styling - ############################ */
@@ -200,6 +234,7 @@ main {
   padding: 2em;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .dashboardButtons {
@@ -216,9 +251,11 @@ main {
   background: rgb(190, 48, 39);
   background: linear-gradient(
     90deg,
-    rgba(190, 48, 39, 1) 0%,
-    rgba(218, 80, 71, 1) 100%
+    rgba(190, 48, 39, 1),
+    rgb(219, 70, 59),
+    rgba(190, 48, 39, 1)
   );
+  background-size: 200%;
   border: none;
   -webkit-box-shadow: 0px 0px 10px 2px #cacaca;
   box-shadow: 0px 0px 10px 2px #cacaca;
@@ -227,11 +264,23 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  transition: all 0.5s ease-in;
+  margin: 0 1em;
+}
+
+.dashboardButton:hover {
+  background-position: right;
+  text-decoration: none;
 }
 
 .dashboardButton img {
   max-height: 3.5em;
   padding-bottom: 1em;
+  transition: all 0.5s ease-in;
+}
+
+.dashboardButton:hover img {
+  max-height: 4em;
 }
 
 .dashboardButton a {
