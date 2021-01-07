@@ -8,6 +8,11 @@ body {
   font-weight: 400;
 }
 
+strong {
+  font-weight: bold;
+  color: black;
+}
+
 /* ########################### - Sign In styling - ############################ */
 .signInWrapper {
   width: 100%;
@@ -29,7 +34,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-top: 15vh;
+  padding-top: 20vh;
   box-sizing: border-box;
   /* justify-content: center; */
   align-items: center;
@@ -45,7 +50,7 @@ body {
 .signInIntroContent h1 {
   font-family: "Varela Round", sans-serif;
   font-weight: bold;
-  font-size: 2.5em;
+  font-size: 3em;
 }
 
 .signInIntroContent h1:first-child {
@@ -59,8 +64,7 @@ body {
 }
 
 .keyImage {
-  width: 60%;
-  height: 6em;
+  width: 40%;
 }
 
 .ringRingerWrapper {
@@ -85,16 +89,12 @@ body {
   background: #f1f1f1;
   box-sizing: border-box;
   padding: 5em;
+  justify-content: center;
 }
 
 .signInDetail > h1 {
   max-width: 8em;
   color: #818181;
-}
-
-.signInDetail strong {
-  font-weight: bold;
-  color: black;
 }
 
 .signInDetail form {
@@ -119,6 +119,24 @@ body {
 
 .signInDetail label {
   padding-top: 1em;
+}
+
+.logInButton {
+  background: #be3027;
+  color: white;
+  padding: 1em;
+  max-width: 12em;
+  box-sizing: border-box;
+  text-decoration: none;
+  text-align: center;
+  margin-top: 2em;
+}
+
+.forgotPassword {
+  text-decoration: none;
+  color: #818181;
+  font-size: 0.9em;
+  margin-top: 1em;
 }
 
 /* ########################### - Header styling - ############################ */
@@ -211,8 +229,16 @@ main {
   justify-content: center;
 }
 
-.dashboardButton > img {
-  max-height: 4.5em;
+.dashboardButton img {
+  max-height: 3.5em;
+  padding-bottom: 1em;
+}
+
+.dashboardButton a {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  text-decoration: none;
 }
 
 /* ########################### - sidebar content styling - ############################ */
@@ -331,4 +357,16 @@ input[type="checkbox"]:checked + label {
 #map {
   height: 20em;
   width: 30em;
+}
+
+@media only screen and (max-width: 600px) {
+  .signInIntroContent {
+    padding-top: 1em;
+  }
+  .headerWrapper {
+    margin-top: 0;
+  }
+  .signInDetail {
+    padding-top: 2em;
+  }
 }

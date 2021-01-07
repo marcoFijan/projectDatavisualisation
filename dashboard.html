@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get specific json</title>
+    <link rel="stylesheet" href="style/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,500&family=Varela+Round&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://unpkg.com/topojson@3.0.2/dist/topojson.js"></script>
+
+    <header>
+      <nav>
+        <ul>
+          <li>Dashboard</li>
+          <li>Kaart</li>
+          <li>Feedback</li>
+        </ul>
+      </nav>
+      <img src="resources/logo.svg" alt="Ring Ring logo" />
+      <div>
+        <div class="avatar"></div>
+        <p>Jan van Straten</p>
+      </div>
+    </header>
+
+    <main>
+      <div class="contentWrapper">
+        <div class="dashboardButtons">
+          <button class="dashboardButton">
+            <img src="resources/dashboard.svg" alt="Dashboard icon" />
+            Dashboard
+          </button>
+          <button class="dashboardButton">
+            <a href="map.html">
+              <img src="resources/map.svg" alt="Chart icon" />
+              Kaart
+            </a>
+          </button>
+          <button class="dashboardButton">
+            <img
+              src="resources/Naamloos-1_Tekengebied 1 kopie 10.svg"
+              alt="Feedback icon"
+            />
+            Feedback
+          </button>
+        </div>
+        <div class="durationChartWrapper">
+          <svg></svg>
+          <form>
+            <h2>Filter</h2>
+            <ul>
+              <li>
+                <input
+                  type="checkbox"
+                  id="filterUnknown"
+                  name="filterUnknown"
+                />
+                <label for="filterUnknown"
+                  >Verwijder onbekende locatie data</label
+                >
+              </li>
+              <li>
+                <input
+                  type="checkbox"
+                  id="filterBigBars"
+                  name="filterBigBars"
+                />
+                <label for="filterBigBars"
+                  >Toon alleen avonden en nachten</label
+                >
+              </li>
+            </ul>
+            <h2>Legenda</h2>
+            <ul>
+              <li class="legendaItem">
+                <div class="longDurationColor"></div>
+                <p>Langer dan 30 minuten onderweg</p>
+              </li>
+              <li class="legendaItem">
+                <div class="mediumDurationColor"></div>
+                <p>Tussen de 5 en 30 minuten onderweg</p>
+              </li>
+              <li class="legendaItem">
+                <div class="shortDurationColor"></div>
+                <p>Korter dan 5 minuten onderweg</p>
+              </li>
+            </ul>
+          </form>
+        </div>
+      </div>
+      <div class="sidebar"></div>
+    </main>
+
+    <footer></footer>
+    <script src="scripts/durationChart.js"></script>
+  </body>
+</html>

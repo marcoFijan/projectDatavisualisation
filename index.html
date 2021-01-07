@@ -3,92 +3,71 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Get specific json</title>
+    <title>Overzichtskaart</title>
     <link rel="stylesheet" href="style/style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,500&family=Varela+Round&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1qxpqXbcv6eQyOsfjeex-VjmM_yoIcmI&callback=initMap&libraries=&v=weekly"
+      defer
+    ></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
   </head>
   <body>
-    <script src="https://d3js.org/d3.v6.min.js"></script>
-    <script src="https://unpkg.com/topojson@3.0.2/dist/topojson.js"></script>
-
-    <header>
-      <nav>
-        <ul>
-          <li>Dashboard</li>
-          <li>Kaart</li>
-          <li>Feedback</li>
-        </ul>
-      </nav>
-      <img src="resources/logo.svg" alt="Ring Ring logo" />
-      <div>
-        <div class="avatar"></div>
-        <p>Jan van Straten</p>
-      </div>
-    </header>
-
-    <main>
-      <div class="contentWrapper">
-        <div class="dashboardButtons">
-          <button class="dashboardButton">
-            <img src="resources/placeHolder.svg" alt="For You icon" />
-            For You
-          </button>
-          <button class="dashboardButton">
-            <a href="map.html">
-              <img src="resources/placeHolder.svg" alt="Chart icon" />
-              Kaart
-            </a>
-          </button>
-          <button class="dashboardButton">
-            <img src="resources/placeHolder.svg" alt="Feedback icon" />
-            Feedback
-          </button>
+    <div class="signInWrapper">
+      <div class="signInIntro">
+        <div class="ringRingerWrapper">
+          <img
+            src="resources/ringRinger.svg"
+            alt="ringRinger logo"
+            class="ringRinger"
+          />
         </div>
-        <div class="durationChartWrapper">
-          <svg></svg>
-          <form>
-            <h2>Filter</h2>
-            <ul>
-              <li>
-                <input
-                  type="checkbox"
-                  id="filterUnknown"
-                  name="filterUnknown"
-                />
-                <label for="filterUnknown"
-                  >Verwijder onbekende locatie data</label
-                >
-              </li>
-              <li>
-                <input
-                  type="checkbox"
-                  id="filterBigBars"
-                  name="filterBigBars"
-                />
-                <label for="filterBigBars"
-                  >Toon alleen avonden en nachten</label
-                >
-              </li>
-            </ul>
-            <h2>Legenda</h2>
-            <ul>
-              <li class="legendaItem">
-                <div class="longDurationColor"></div>
-                <p>Langer dan 30 minuten onderweg</p>
-              </li>
-              <li class="legendaItem">
-                <div class="mediumDurationColor"></div>
-                <p>Tussen de 5 en 30 minuten onderweg</p>
-              </li>
-              <li class="legendaItem">
-                <div class="shortDurationColor"></div>
-                <p>Korter dan 5 minuten onderweg</p>
-              </li>
-            </ul>
-          </form>
+        <div class="signInIntroContent">
+          <img
+            src="resources/signInKey.svg"
+            alt="image of a key"
+            class="keyImage"
+          />
+          <div class="headerWrapper">
+            <h1>Policymaker</h1>
+            <h1>Portal</h1>
+          </div>
+          <p>Powered by Ring - Ring</p>
         </div>
       </div>
-      <div class="sidebar"></div>
-    </main>
+      <div class="signInDetail">
+        <h1>Please log in and <strong>work together!</strong></h1>
+        <form>
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Jan van Straten"
+            autofocus
+            required
+          />
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="*******"
+            required
+          />
+          <a class="forgotPassword" href="index.html"
+            >Forgot your <strong>password</strong>?</a
+          >
+          <a class="logInButton" href="dashboard.html">Proceed to workroom</a>
+        </form>
+      </div>
+    </div>
 
     <footer></footer>
     <script src="scripts/durationChart.js"></script>
