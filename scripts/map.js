@@ -3,6 +3,6 @@ mapboxgl.accessToken =
 let map = new mapboxgl.Map({
   container: "map",
   style: "mapbox://styles/mapbox/streets-v11", // stylesheet location
-  center: [4.89, 52.37], // starting position [lng, lat]
-  zoom: 11.5, // starting zoom
+  center: [4.89, 52.371], // starting position [lng, lat]
+  zoom: 12.8, // starting zoom
 });

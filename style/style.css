@@ -421,7 +421,7 @@ input[type="checkbox"]:checked + label {
 
 /* ########################### - Map styling - ############################ */
 #map {
-  height: 28em;
+  min-height: 60vh;
   width: 100%;
 }
 
