@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Get specific json</title>
     <link rel="stylesheet" href="style/style.css" />
-    <!-- Load mapbox -->
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.js"></script>
     <link
-      href="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.css"
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,500&family=Varela+Round&display=swap"
       rel="stylesheet"
     />
   </head>
@@ -55,13 +53,52 @@
           </a>
         </div>
         <div class="durationChartWrapper">
-          <div id="map"></div>
+          <svg class="durationChart"></svg>
+          <form>
+            <h2>Filter</h2>
+            <ul>
+              <li>
+                <input
+                  type="checkbox"
+                  id="filterUnknown"
+                  name="filterUnknown"
+                  disabled
+                />
+                <label for="filterUnknown">dummy filter</label>
+              </li>
+              <li>
+                <input
+                  type="checkbox"
+                  id="filterBigBars"
+                  name="filterBigBars"
+                />
+                <label for="filterBigBars"
+                  >Inzoomen op de data (closed up view)</label
+                >
+              </li>
+            </ul>
+            <h2>Legenda</h2>
+            <ul>
+              <li class="legendaItem">
+                <div class="longDurationColor"></div>
+                <p>Langer dan 30 minuten onderweg</p>
+              </li>
+              <li class="legendaItem">
+                <div class="mediumDurationColor"></div>
+                <p>Tussen de 5 en 30 minuten onderweg</p>
+              </li>
+              <li class="legendaItem">
+                <div class="shortDurationColor"></div>
+                <p>Korter dan 5 minuten onderweg</p>
+              </li>
+            </ul>
+          </form>
         </div>
       </div>
       <div class="sidebar"></div>
     </main>
 
     <footer></footer>
-    <script src="scripts/map.js"></script>
+    <script src="scripts/durationChart.js"></script>
   </body>
 </html>

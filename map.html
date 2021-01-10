@@ -27,23 +27,33 @@
       </nav>
       <img src="resources/logo.svg" alt="Ring Ring logo" />
       <div>
-        <div class="avatar"></div>
-        <p>Jan van Straten</p>
+        <img class="avatar" src="resources/avatar.svg" />
+        <div class="accountInfo">
+          <p>Jan van Straten</p>
+          <a class="logOutButton" href="index.html">Log out</a>
+        </div>
       </div>
     </header>
 
     <main>
       <div class="contentWrapper">
         <div class="dashboardButtons">
-          <button class="dashboardButton">
-            <img src="resources/placeHolder.svg" alt="For You icon" /> For You
-          </button>
-          <button class="dashboardButton">
-            <img src="resources/placeHolder.svg" alt="Chart icon" />Kaart
-          </button>
-          <button class="dashboardButton">
-            <img src="resources/placeHolder.svg" alt="Feedback icon" />Feedback
-          </button>
+          <a href="dashboard.html" class="dashboardButton">
+            <img src="resources/dashboard.svg" alt="Dashboard icon" />
+            Dashboard
+          </a>
+          <a href="map.html" class="dashboardButton">
+            <img src="resources/map.svg" alt="Chart icon" />
+            Kaart
+          </a>
+
+          <a href="feedback.html" class="dashboardButton">
+            <img
+              src="resources/Naamloos-1_Tekengebied 1 kopie 10.svg"
+              alt="Feedback icon"
+            />
+            Feedback
+          </a>
         </div>
         <div class="durationChartWrapper">
           <div id="map"></div>
@@ -53,6 +63,6 @@
     </main>
 
     <footer></footer>
-    <script src="scripts/durationChart.js"></script>
+    <script src="scripts/map.js"></script>
   </body>
 </html>
