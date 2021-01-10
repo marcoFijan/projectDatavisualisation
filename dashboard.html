@@ -19,17 +19,38 @@
     <header>
       <nav>
         <ul>
-          <li>Dashboard</li>
-          <li>Kaart</li>
-          <li>Feedback</li>
+          <li>
+            <a href="dashboard.html">
+              <img src="resources/dashboardIcon.svg" />Home</a
+            >
+          </li>
+          <li>
+            <a href="forYou.html">
+              <img src="resources/dashboardIcon.svg" />Voor u</a
+            >
+          </li>
+          <li>
+            <a href="map.html">
+              <img src="resources/mapIcon.svg" class="mapHeaderIcon" />Kaart</a
+            >
+          </li>
+          <li>
+            <a href="feedback.html">
+              <img
+                src="resources/feedbackIcon.svg"
+                class="feedbackHeaderIcon"
+              />Route ervaringen</a
+            >
+          </li>
         </ul>
       </nav>
       <img src="resources/logo.svg" alt="Ring Ring logo" />
       <div>
+        <img class="notification" src="resources/notification.svg" />
         <img class="avatar" src="resources/avatar.svg" />
         <div class="accountInfo">
           <p>Jan van Straten</p>
-          <a class="logOutButton" href="index.html">Log out</a>
+          <a class="logOutButton" href="index.html">Uitloggen</a>
         </div>
       </div>
     </header>
@@ -39,19 +60,19 @@
         <div class="dashboardButtons">
           <a href="dashboard.html" class="dashboardButton">
             <img src="resources/dashboard.svg" alt="Dashboard icon" />
-            Dashboard
+            <p>Datavisualisaties voor uw gebruik</p>
+            Voor u
           </a>
           <a href="map.html" class="dashboardButton">
             <img src="resources/map.svg" alt="Chart icon" />
+            <p>Gedetaileerde blik op de routes</p>
             Kaart
           </a>
 
           <a href="feedback.html" class="dashboardButton">
-            <img
-              src="resources/Naamloos-1_Tekengebied 1 kopie 10.svg"
-              alt="Feedback icon"
-            />
-            Feedback
+            <img src="resources/feedback.svg" alt="Feedback icon" />
+            <p>Feedbackoverzicht van de routes</p>
+            Route ervaringen
           </a>
         </div>
         <div class="durationChartWrapper">
