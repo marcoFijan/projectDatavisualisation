@@ -170,6 +170,10 @@ header > img {
   margin: 0 auto;
 }
 
+header .barChartIcon path {
+  stroke-width: 0.2;
+}
+
 header > nav {
   width: 16em;
   display: flex;
@@ -358,15 +362,55 @@ line {
   stroke: #dbdbdb;
 }
 
+/* ########################### - contentDetail styling - ############################ */
+.contentDetailWrapper {
+  color: #2a292f;
+  background: white;
+  -webkit-box-shadow: 0px 0px 10px 2px #cacaca;
+  box-shadow: 0px 0px 10px 2px #cacaca;
+  border-radius: 0.2em;
+  min-height: 60vh;
+  padding: 2rem;
+}
+
+.contentMap {
+  padding: 0;
+}
+
+.contentDetailWrapper h1 {
+  font-size: 1.3em;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.contentDetailWrapper h2 {
+  font-size: 0.9em;
+}
+
+.contentHeader {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #cacaca;
+}
+
+.contentHeader img {
+  height: 1.3em;
+}
+
+.contentHeadersText {
+  margin-left: 1em;
+}
+
+.contentHeader > img {
+  cursor: pointer;
+}
+
 /* ########################### - durationChart styling - ############################ */
 .durationChartWrapper {
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
   color: #2a292f;
-  background: white;
-  -webkit-box-shadow: 0px 0px 10px 2px #cacaca;
-  box-shadow: 0px 0px 10px 2px #cacaca;
   border-radius: 0.2em;
   min-height: 60vh;
   justify-content: space-around;
@@ -460,4 +504,87 @@ input[type="checkbox"]:checked + label {
   .signInDetail {
     padding-top: 2em;
   }
+}
+
+/* ########################### - Feedback styling - ############################ */
+.feedbackSection {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  width: 100%;
+  padding: 0;
+  justify-content: start;
+}
+
+.feedbackSection li {
+  border-bottom: 0.6px solid #cacaca;
+  display: grid;
+  grid-template-columns: 1fr 1fr 6fr 1fr 1fr 1fr;
+  align-items: center;
+  padding: 1em;
+}
+
+/* .feedbackSection li img:first-child {
+  margin: 0 1em;
+}
+
+.feedbackTime {
+  margin: 0 1em;
+  width: 3em;
+}
+
+.feedbackDistance {
+  margin: 0 1em;
+  width: 12em;
+}
+
+.feedbackSection li img:last-child {
+  margin: 0 1em;
+  width: 10em;
+} */
+
+.feedbackSection img {
+  max-height: 2em;
+}
+
+.feedbackSection input[type="checkbox"]:checked + label {
+  /* background: rgba(190, 48, 39, 1);
+  background: linear-gradient(90deg, rgba(190, 48, 39, 1), rgb(219, 70, 59));
+  color: white; */
+  background-position: right;
+  border: none;
+  color: white;
+  font-weight: 400;
+}
+
+.feedbackSection label {
+  padding: 1em;
+  border: 1px solid black;
+  transition: all 0.5s ease-in;
+  background: linear-gradient(
+    90deg,
+    white,
+    white,
+    white,
+    rgba(190, 48, 39, 1),
+    rgb(219, 70, 59)
+  );
+  background-size: 400%;
+}
+
+.feedbackSection label:hover {
+  background: linear-gradient(
+    90deg,
+    white,
+    white,
+    white,
+    rgba(190, 48, 39, 1),
+    rgb(219, 70, 59)
+  );
+  background-size: 400%;
+  background-position: center;
+}
+
+.feedbackSection input {
+  display: none;
 }

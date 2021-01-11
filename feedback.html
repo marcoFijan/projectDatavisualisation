@@ -57,33 +57,26 @@
     </header>
 
     <main>
-      <div class="contentWrapper">
-        <div class="dashboardButtons">
-          <a href="forYou.html" class="dashboardButton">
-            <img src="resources/dashboard.svg" alt="Dashboard icon" />
-            <p>Datavisualisaties voor uw gebruik</p>
-            Voor u
-          </a>
-          <a href="map.html" class="dashboardButton">
-            <img src="resources/map.svg" alt="Chart icon" />
-            <p>Gedetaileerde blik op de routes</p>
-            Kaart
-          </a>
-
-          <a href="feedback.html" class="dashboardButton">
-            <img src="resources/feedback.svg" alt="Feedback icon" />
-            <p>Feedbackoverzicht van de routes</p>
-            Route ervaringen
-          </a>
-        </div>
-        <div class="contentDetailWrapper contentMap">
-          <div id="map"></div>
-        </div>
-      </div>
-      <div class="sidebar"></div>
+      <section class="contentWrapper">
+        <section class="contentDetailWrapper">
+          <section class="contentHeader">
+            <img
+              src="resources/return.svg"
+              alt="returnButton"
+              onclick="goBack()"
+            />
+            <section class="contentHeadersText">
+              <h1>Feedback Amsterdam - Januari 2020</h1>
+              <h2>Meningen en advies van gebruikers</h2>
+            </section>
+          </section>
+          <ul class="feedbackSection"></ul>
+        </section>
+      </section>
+      <section class="sidebar"></section>
     </main>
 
     <footer></footer>
-    <script src="scripts/map.js"></script>
+    <script src="scripts/feedback.js"></script>
   </body>
 </html>

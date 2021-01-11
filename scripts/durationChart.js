@@ -60,8 +60,8 @@ function setupData() {
   durationPerTimestamp = d3
     .json(proxyURL + ringRingApi)
     .then((ringRingFetchedData) => {
-      console.log("done");
-      const ringRingFeatures = ringRingFetchedData[0].features;
+      console.log(ringRingFetchedData);
+      const ringRingFeatures = ringRingFetchedData.features;
       console.log(ringRingFeatures);
       const timeStamps = getTimeStamp(ringRingFeatures);
       const timeStampsAndDuration = getDurationInMinutes(timeStamps);
@@ -470,4 +470,8 @@ function initMap(geoJson) {
   map.data.loadGeoJson(
     "https://cors-anywhere.herokuapp.com/http://ringring.jorrr.nl/geojson-data-ringring.json"
   );
+}
+
+function goBack() {
+  window.history.back();
 }

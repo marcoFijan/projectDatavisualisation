@@ -17,82 +17,99 @@
     <header>
       <nav>
         <ul>
-          <li>Dashboard</li>
-          <li>Kaart</li>
-          <li>Feedback</li>
+          <li>
+            <a href="dashboard.html">
+              <img src="resources/dashboardIcon.svg" />Home</a
+            >
+          </li>
+          <li>
+            <a href="forYou.html">
+              <img src="resources/traficLight.svg" class="barChartIcon" />Voor
+              u</a
+            >
+          </li>
+          <li>
+            <a href="map.html">
+              <img src="resources/mapIcon.svg" class="mapHeaderIcon" />Kaart</a
+            >
+          </li>
+          <li>
+            <a href="feedback.html">
+              <img
+                src="resources/feedbackIcon.svg"
+                class="feedbackHeaderIcon"
+              />Ontvangen Feedback</a
+            >
+          </li>
         </ul>
       </nav>
       <img src="resources/logo.svg" alt="Ring Ring logo" />
       <div>
+        <img class="notification" src="resources/notification.svg" />
         <img class="avatar" src="resources/avatar.svg" />
         <div class="accountInfo">
           <p>Jan van Straten</p>
-          <a class="logOutButton" href="index.html">Log out</a>
+          <a class="logOutButton" href="index.html">Uitloggen</a>
         </div>
       </div>
     </header>
 
     <main>
       <div class="contentWrapper">
-        <div class="dashboardButtons">
-          <a href="dashboard.html" class="dashboardButton">
-            <img src="resources/dashboard.svg" alt="Dashboard icon" />
-            Dashboard
-          </a>
-          <a href="map.html" class="dashboardButton">
-            <img src="resources/map.svg" alt="Chart icon" />
-            Kaart
-          </a>
-
-          <a href="feedback.html" class="dashboardButton">
+        <div class="contentDetailWrapper">
+          <div class="contentHeader">
             <img
-              src="resources/Naamloos-1_Tekengebied 1 kopie 10.svg"
-              alt="Feedback icon"
+              src="resources/return.svg"
+              alt="returnButton"
+              onclick="goBack()"
             />
-            Feedback
-          </a>
-        </div>
-        <div class="durationChartWrapper">
-          <svg class="durationChart"></svg>
-          <form>
-            <h2>Filter</h2>
-            <ul>
-              <li>
-                <input
-                  type="checkbox"
-                  id="filterUnknown"
-                  name="filterUnknown"
-                  disabled
-                />
-                <label for="filterUnknown">dummy filter</label>
-              </li>
-              <li>
-                <input
-                  type="checkbox"
-                  id="filterBigBars"
-                  name="filterBigBars"
-                />
-                <label for="filterBigBars"
-                  >Inzoomen op de data (closed up view)</label
-                >
-              </li>
-            </ul>
-            <h2>Legenda</h2>
-            <ul>
-              <li class="legendaItem">
-                <div class="longDurationColor"></div>
-                <p>Langer dan 30 minuten onderweg</p>
-              </li>
-              <li class="legendaItem">
-                <div class="mediumDurationColor"></div>
-                <p>Tussen de 5 en 30 minuten onderweg</p>
-              </li>
-              <li class="legendaItem">
-                <div class="shortDurationColor"></div>
-                <p>Korter dan 5 minuten onderweg</p>
-              </li>
-            </ul>
-          </form>
+            <div class="contentHeadersText">
+              <h1>Belangrijke datainzichten voor u</h1>
+              <h2>Gedetaileerde datavisualisaties relevant voor u</h2>
+            </div>
+          </div>
+          <div class="durationChartWrapper">
+            <svg class="durationChart"></svg>
+            <form>
+              <h2>Filter</h2>
+              <ul>
+                <li>
+                  <input
+                    type="checkbox"
+                    id="filterUnknown"
+                    name="filterUnknown"
+                    disabled
+                  />
+                  <label for="filterUnknown">dummy filter</label>
+                </li>
+                <li>
+                  <input
+                    type="checkbox"
+                    id="filterBigBars"
+                    name="filterBigBars"
+                  />
+                  <label for="filterBigBars"
+                    >Inzoomen op de data (closed up view)</label
+                  >
+                </li>
+              </ul>
+              <h2>Legenda</h2>
+              <ul>
+                <li class="legendaItem">
+                  <div class="longDurationColor"></div>
+                  <p>Langer dan 30 minuten onderweg</p>
+                </li>
+                <li class="legendaItem">
+                  <div class="mediumDurationColor"></div>
+                  <p>Tussen de 5 en 30 minuten onderweg</p>
+                </li>
+                <li class="legendaItem">
+                  <div class="shortDurationColor"></div>
+                  <p>Korter dan 5 minuten onderweg</p>
+                </li>
+              </ul>
+            </form>
+          </div>
         </div>
       </div>
       <div class="sidebar"></div>

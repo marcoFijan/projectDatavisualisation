@@ -9,57 +9,76 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,500&family=Varela+Round&display=swap"
       rel="stylesheet"
     />
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1qxpqXbcv6eQyOsfjeex-VjmM_yoIcmI&callback=initMap&libraries=&v=weekly"
-      defer
-    ></script>
+    <!-- Load mapbox -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
     <script src="https://d3js.org/d3.v6.min.js"></script>
   </head>
   <body>
     <header>
       <nav>
         <ul>
-          <li>Dashboard</li>
-          <li>Kaart</li>
-          <li>Feedback</li>
+          <li>
+            <a href="dashboard.html">
+              <img src="resources/dashboardIcon.svg" />Home</a
+            >
+          </li>
+          <li>
+            <a href="forYou.html">
+              <img src="resources/traficLight.svg" class="barChartIcon" />Voor
+              u</a
+            >
+          </li>
+          <li>
+            <a href="map.html">
+              <img src="resources/mapIcon.svg" class="mapHeaderIcon" />Kaart</a
+            >
+          </li>
+          <li>
+            <a href="feedback.html">
+              <img
+                src="resources/feedbackIcon.svg"
+                class="feedbackHeaderIcon"
+              />Ontvangen Feedback</a
+            >
+          </li>
         </ul>
       </nav>
       <img src="resources/logo.svg" alt="Ring Ring logo" />
       <div>
+        <img class="notification" src="resources/notification.svg" />
         <img class="avatar" src="resources/avatar.svg" />
         <div class="accountInfo">
           <p>Jan van Straten</p>
-          <a class="logOutButton" href="index.html">Log out</a>
+          <a class="logOutButton" href="index.html">Uitloggen</a>
         </div>
       </div>
     </header>
 
     <main>
-      <div class="contentWrapper">
-        <div class="dashboardButtons">
-          <a href="dashboard.html" class="dashboardButton">
-            <img src="resources/dashboard.svg" alt="Dashboard icon" />
-            Dashboard
-          </a>
-          <a href="map.html" class="dashboardButton">
-            <img src="resources/map.svg" alt="Chart icon" />
-            Kaart
-          </a>
-
-          <a href="feedback.html" class="dashboardButton">
+      <section class="contentWrapper">
+        <section class="contentDetailWrapper">
+          <section class="contentHeader">
             <img
-              src="resources/Naamloos-1_Tekengebied 1 kopie 10.svg"
-              alt="Feedback icon"
+              src="resources/return.svg"
+              alt="returnButton"
+              onclick="goBack()"
             />
-            Feedback
-          </a>
-        </div>
-        <div class="durationChartWrapper">
+            <section class="contentHeadersText">
+              <h1>Afgelegde routes Amsterdam - Januari 2020</h1>
+              <h2>
+                De drukste routes op elk tijdstip van de dat. U kunt hier rechts
+                filteren
+              </h2>
+            </section>
+          </section>
           <div id="map"></div>
-        </div>
-      </div>
-      <div class="sidebar"></div>
+        </section>
+      </section>
+      <section class="sidebar"></section>
     </main>
 
     <footer></footer>
