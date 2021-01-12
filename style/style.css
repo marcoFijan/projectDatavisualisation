@@ -250,8 +250,10 @@ header > nav > ul > li > a {
 
 /* ########################### - main content styling - ############################ */
 .contentWrapper {
-  max-width: 65em;
-  flex-grow: 4;
+  /* max-width: 65em; */
+  width: 74%;
+  /* flex-grow: 4; */
+  min-height: 60vh;
   height: 100%;
 }
 
@@ -261,6 +263,7 @@ main {
   min-height: 77vh;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .dashboardButtons {
@@ -328,14 +331,21 @@ main {
 
 /* ########################### - sidebar content styling - ############################ */
 .sidebar {
+  /* min-width: 15em;
+  max-width: 25em; */
   min-width: 15em;
+  width: 25%;
   background: white;
   min-height: 5em;
-  flex-grow: 1;
-  margin-left: 1em;
+  /* flex-grow: 1; */
   -webkit-box-shadow: 0px 0px 10px 2px #cacaca;
   box-shadow: 0px 0px 10px 2px #cacaca;
   border-radius: 0.2em;
+}
+
+.sidebar h1,
+.sidebar h2 {
+  word-wrap: normal;
 }
 
 /* ########################### - D3 styling - ############################ */
@@ -377,10 +387,15 @@ line {
   padding: 0;
 }
 
+.contentMap .contentHeader {
+  padding: 2rem 2rem 0 2rem;
+}
+
 .contentDetailWrapper h1 {
   font-size: 1.3em;
   margin-top: 0;
   padding-top: 0;
+  margin-bottom: 0.5em;
 }
 
 .contentDetailWrapper h2 {
