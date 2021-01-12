@@ -1,6 +1,8 @@
 // const proxyUrl = "https://cors-anywhere.herokuapp.com/";
 // const url = "../resources/export-details-amsterdam-binnenring.json";
 
+// const { timeStamp } = require("console");
+
 // let data = [];
 
 // async function setupData() {
@@ -20,15 +22,22 @@
 const proxyURL = "https://cors-anywhere.herokuapp.com/";
 const ringRingApi = "http://ringring.jorrr.nl/geojson-data-ringring.json";
 const timeStampsList = [
-  "00:00-02:00",
-  "02:00-06:00",
-  "08:00-10:00",
-  "12:00-14:00",
-  "14:00-16:00",
-  "16:00-18:00",
-  "18:00-20:00",
-  "20:00-22:00",
-  "22:00-24:00",
+  "00:00-06:00",
+  "06:00-07:00",
+  "07:00-08:00",
+  "09:00-10:00",
+  "10:00-11:00",
+  "11:00-12:00",
+  "12:00-13:00",
+  "13:00-14:00",
+  "14:00-15:00",
+  "15:00-16:00",
+  "16:00-17:00",
+  "17:00-18:00",
+  "18:00-19:00",
+  "19:00-20:00",
+  "20:00-21:00",
+  "21:00-24:00",
 ];
 
 //## SET D3 VARIABLES ##
@@ -46,7 +55,13 @@ const innerHeight = height - margin.top - margin.bottom;
 //-- Y & X Values --
 const stackGenerator = d3
   .stack()
-  .keys(["shortDuration", "mediumDuration", "longDuration"]);
+  .keys([
+    "veryShortDistance",
+    "shortDistance",
+    "mediumDistance",
+    "longDistance",
+    "veryLongDistance",
+  ]);
 const valueX = (d) => d.timeStamp; // d.data.province
 let stackedBars;
 //-- Scales --
@@ -64,18 +79,26 @@ function setupData() {
       const ringRingFeatures = ringRingFetchedData.features;
       console.log(ringRingFeatures);
       const timeStamps = getTimeStamp(ringRingFeatures);
-      const timeStampsAndDuration = getDurationInMinutes(timeStamps);
+      // const timeStampsAndDuration = getDurationInMinutes(timeStamps);
+      const timeStampsAndDistance = getDistance(timeStamps);
+      console.log(timeStampsAndDistance);
       const durationPerTimestamp = timeStampsList.map((timeStamp) => {
         const filteredTimestamp = filterTimestamp(
-          timeStampsAndDuration,
+          timeStampsAndDistance,
           timeStamp
         );
         return {
           timeStamp: timeStamp,
-          shortDuration: getShortDurationPerTimestamp(filteredTimestamp),
-          mediumDuration: getMediumDurationPerTimestamp(filteredTimestamp),
-          longDuration: getLongDurationPerTimestamp(filteredTimestamp),
-          averageDistance: getAverageDistance(timeStamp, timeStamps),
+          veryShortDistance: getVeryShortDistancePerTimestamp(
+            filteredTimestamp
+          ),
+          veryShortDistance: getVeryShortDistancePerTimestamp(
+            filteredTimestamp
+          ),
+          shortDistance: getShortDistancePerTimestamp(filteredTimestamp),
+          mediumDistance: getMediumDistancePerTimestamp(filteredTimestamp),
+          longDistance: getLongDistancePerTimestamp(filteredTimestamp),
+          veryLongDistance: getVeryLongDistancePerTimestamp(filteredTimestamp),
         };
       });
       data = durationPerTimestamp;
@@ -92,70 +115,152 @@ function filterTimestamp(timeStampsAndDurationArray, timeStamp) {
   });
 }
 
-function getShortDurationPerTimestamp(timeStampsAndDurationArray) {
-  return timeStampsAndDurationArray.reduce((sum, route) => {
-    if (route.duration === "short") {
-      return sum + 1;
-    }
-    return sum;
-  }, 0);
-}
+// function getShortDurationPerTimestamp(timeStampsAndDurationArray) {
+//   return timeStampsAndDurationArray.reduce((sum, route) => {
+//     if (route.duration === "short") {
+//       return sum + 1;
+//     }
+//     return sum;
+//   }, 0);
+// }
 
-function getMediumDurationPerTimestamp(timeStampsAndDurationArray) {
-  return timeStampsAndDurationArray.reduce((sum, route) => {
-    if (route.duration === "medium") {
-      return sum + 1;
-    }
-    return sum;
-  }, 0);
-}
+// function getMediumDurationPerTimestamp(timeStampsAndDurationArray) {
+//   return timeStampsAndDurationArray.reduce((sum, route) => {
+//     if (route.duration === "medium") {
+//       return sum + 1;
+//     }
+//     return sum;
+//   }, 0);
+// }
 
-function getLongDurationPerTimestamp(timeStampsAndDurationArray) {
-  return timeStampsAndDurationArray.reduce((sum, route) => {
-    if (route.duration === "long") {
-      return sum + 1;
-    }
-    return sum;
-  }, 0);
-}
+// function getLongDurationPerTimestamp(timeStampsAndDurationArray) {
+//   return timeStampsAndDurationArray.reduce((sum, route) => {
+//     if (route.duration === "long") {
+//       return sum + 1;
+//     }
+//     return sum;
+//   }, 0);
+// }
 
-function getAverageDistance(timeStamp, timeStampsList) {
-  const currentTimeStampCollection = timeStampsList.filter(
-    (feature) => feature.timeStamp === timeStamp
-  );
-  const totalDistance = currentTimeStampCollection.reduce((sum, route) => {
-    return sum + route.properties.distance;
-  }, 0);
-  averageDistance = totalDistance / currentTimeStampCollection.length;
-  if (isNaN(averageDistance)) {
-    averageDistance = 0;
-  }
-  return averageDistance;
-}
+// function getAverageDistance(timeStamp, timeStampsList) {
+//   const currentTimeStampCollection = timeStampsList.filter(
+//     (feature) => feature.timeStamp === timeStamp
+//   );
+//   const totalDistance = currentTimeStampCollection.reduce((sum, route) => {
+//     return sum + route.properties.distance;
+//   }, 0);
+//   averageDistance = totalDistance / currentTimeStampCollection.length;
+//   if (isNaN(averageDistance)) {
+//     averageDistance = 0;
+//   }
+//   return averageDistance;
+// }
 
-function getDurationInMinutes(ringRingFeatures) {
+// function getDurationInMinutes(ringRingFeatures) {
+//   return ringRingFeatures.map((feature) => {
+//     const duration = feature.properties.duration;
+//     if (duration <= 5) {
+//       return {
+//         properties: feature.properties,
+//         timeStamp: feature.timeStamp,
+//         duration: "short",
+//       };
+//     } else if (duration > 5 && duration <= 30) {
+//       return {
+//         properties: feature.properties,
+//         timeStamp: feature.timeStamp,
+//         duration: "medium",
+//       };
+//     } else {
+//       return {
+//         properties: feature.properties,
+//         timeStamp: feature.timeStamp,
+//         duration: "long",
+//       };
+//     }
+//   });
+// }
+
+function getDistance(ringRingFeatures) {
   return ringRingFeatures.map((feature) => {
-    const duration = feature.properties.duration;
-    if (duration <= 5) {
+    const distance = feature.properties.distance;
+    if (distance <= 1) {
       return {
         properties: feature.properties,
         timeStamp: feature.timeStamp,
-        duration: "short",
+        distance: "veryShort",
       };
-    } else if (duration > 5 && duration <= 30) {
+    } else if (distance > 1 && distance <= 2) {
       return {
         properties: feature.properties,
         timeStamp: feature.timeStamp,
-        duration: "medium",
+        distance: "short",
+      };
+    } else if (distance > 2 && distance <= 4) {
+      return {
+        properties: feature.properties,
+        timeStamp: feature.timeStamp,
+        distance: "medium",
+      };
+    } else if (distance > 4 && distance <= 10) {
+      return {
+        properties: feature.properties,
+        timeStamp: feature.timeStamp,
+        distance: "long",
       };
     } else {
       return {
         properties: feature.properties,
         timeStamp: feature.timeStamp,
-        duration: "long",
+        distance: "veryLong",
       };
     }
   });
+}
+
+function getVeryShortDistancePerTimestamp(timeStampsAndDistanceArray) {
+  return timeStampsAndDistanceArray.reduce((sum, route) => {
+    if (route.distance === "veryShort") {
+      return sum + 1;
+    }
+    return sum;
+  }, 0);
+}
+
+function getShortDistancePerTimestamp(timeStampsAndDistanceArray) {
+  return timeStampsAndDistanceArray.reduce((sum, route) => {
+    if (route.distance === "short") {
+      return sum + 1;
+    }
+    return sum;
+  }, 0);
+}
+
+function getMediumDistancePerTimestamp(timeStampsAndDistanceArray) {
+  return timeStampsAndDistanceArray.reduce((sum, route) => {
+    if (route.distance === "medium") {
+      return sum + 1;
+    }
+    return sum;
+  }, 0);
+}
+
+function getLongDistancePerTimestamp(timeStampsAndDistanceArray) {
+  return timeStampsAndDistanceArray.reduce((sum, route) => {
+    if (route.distance === "long") {
+      return sum + 1;
+    }
+    return sum;
+  }, 0);
+}
+
+function getVeryLongDistancePerTimestamp(timeStampsAndDistanceArray) {
+  return timeStampsAndDistanceArray.reduce((sum, route) => {
+    if (route.distance === "veryLong") {
+      return sum + 1;
+    }
+    return sum;
+  }, 0);
 }
 
 function getTimeStamp(ringRingFeatures) {
@@ -163,59 +268,89 @@ function getTimeStamp(ringRingFeatures) {
     const startTime = feature.properties.start;
     const startTimestamp = startTime.substr(11, 2);
     const startTimestampInteger = parseInt(startTimestamp, 10);
-    if (startTimestampInteger >= 00 && startTimestampInteger < 2) {
+    if (startTimestampInteger >= 00 && startTimestampInteger < 6) {
       return {
-        timeStamp: "00:00-02:00",
+        timeStamp: "00:00-06:00",
         properties: feature.properties,
       };
-    } else if (startTimestampInteger >= 2 && startTimestampInteger < 6) {
+    } else if (startTimestampInteger >= 6 && startTimestampInteger < 7) {
       return {
-        timeStamp: "02:00-06:00",
+        timeStamp: "06:00-07:00",
         properties: feature.properties,
       };
-    } else if (startTimestampInteger >= 6 && startTimestampInteger < 8) {
+    } else if (startTimestampInteger >= 7 && startTimestampInteger < 8) {
       return {
-        timeStamp: "06:00-08:00",
+        timeStamp: "07:00-08:00",
         properties: feature.properties,
       };
-    } else if (startTimestampInteger >= 8 && startTimestampInteger < 10) {
+    } else if (startTimestampInteger >= 8 && startTimestampInteger < 9) {
       return {
-        timeStamp: "08:00-10:00",
+        timeStamp: "08:00-09:00",
         properties: feature.properties,
       };
-    } else if (startTimestampInteger >= 10 && startTimestampInteger < 12) {
+    } else if (startTimestampInteger >= 9 && startTimestampInteger < 10) {
       return {
-        timeStamp: "10:00-12:00",
+        timeStamp: "09:00-10:00",
         properties: feature.properties,
       };
-    } else if (startTimestampInteger >= 12 && startTimestampInteger < 14) {
+    } else if (startTimestampInteger >= 10 && startTimestampInteger < 11) {
       return {
-        timeStamp: "12:00-14:00",
+        timeStamp: "10:00-11:00",
         properties: feature.properties,
       };
-    } else if (startTimestampInteger >= 14 && startTimestampInteger < 16) {
+    } else if (startTimestampInteger >= 11 && startTimestampInteger < 12) {
       return {
-        timeStamp: "14:00-16:00",
+        timeStamp: "11:00-12:00",
         properties: feature.properties,
       };
-    } else if (startTimestampInteger >= 16 && startTimestampInteger < 18) {
+    } else if (startTimestampInteger >= 12 && startTimestampInteger < 13) {
       return {
-        timeStamp: "16:00-18:00",
+        timeStamp: "12:00-13:00",
         properties: feature.properties,
       };
-    } else if (startTimestampInteger >= 18 && startTimestampInteger < 20) {
+    } else if (startTimestampInteger >= 13 && startTimestampInteger < 14) {
       return {
-        timeStamp: "18:00-20:00",
+        timeStamp: "13:00-14:00",
         properties: feature.properties,
       };
-    } else if (startTimestampInteger >= 20 && startTimestampInteger < 22) {
+    } else if (startTimestampInteger >= 14 && startTimestampInteger < 15) {
       return {
-        timeStamp: "20:00-22:00",
+        timeStamp: "14:00-15:00",
         properties: feature.properties,
       };
-    } else if (startTimestampInteger >= 22 && startTimestampInteger < 24) {
+    } else if (startTimestampInteger >= 15 && startTimestampInteger < 16) {
       return {
-        timeStamp: "22:00-24:00",
+        timeStamp: "15:00-16:00",
+        properties: feature.properties,
+      };
+    } else if (startTimestampInteger >= 16 && startTimestampInteger < 17) {
+      return {
+        timeStamp: "16:00-17:00",
+        properties: feature.properties,
+      };
+    } else if (startTimestampInteger >= 17 && startTimestampInteger < 18) {
+      return {
+        timeStamp: "17:00-18:00",
+        properties: feature.properties,
+      };
+    } else if (startTimestampInteger >= 18 && startTimestampInteger < 19) {
+      return {
+        timeStamp: "18:00-19:00",
+        properties: feature.properties,
+      };
+    } else if (startTimestampInteger >= 19 && startTimestampInteger < 20) {
+      return {
+        timeStamp: "19:00-20:00",
+        properties: feature.properties,
+      };
+    } else if (startTimestampInteger >= 20 && startTimestampInteger < 21) {
+      return {
+        timeStamp: "20:00-21:00",
+        properties: feature.properties,
+      };
+    } else if (startTimestampInteger >= 21 && startTimestampInteger < 24) {
+      return {
+        timeStamp: "21:00-24:00",
         properties: feature.properties,
       };
     }
