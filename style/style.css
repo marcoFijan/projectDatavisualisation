@@ -348,13 +348,20 @@ main {
   word-wrap: normal;
 }
 
+.sidebar h2 {
+  margin: 1em;
+  padding: 0.8em;
+  font-size: 1em;
+  border-bottom: 1px solid #cacaca;
+}
+
 /* ########################### - D3 styling - ############################ */
-svg {
+.durationChart {
   width: 500px;
   height: 400px;
 }
 
-svg text {
+.durationChart text {
   fill: black;
   font-size: 1.1em;
 }
@@ -370,6 +377,23 @@ svg text {
 
 line {
   stroke: #dbdbdb;
+}
+
+.weekendChart {
+  width: 250px;
+  height: 250px;
+  display: block;
+  margin: 0 auto;
+}
+
+.weekendChart .arc:first-child text {
+  text-shadow: 1px 1px 2px #f48a14;
+  fill: black;
+}
+
+.weekendChart .arc:last-child text {
+  text-shadow: 1px 1px 2px #be3027;
+  fill: black;
 }
 
 /* ########################### - contentDetail styling - ############################ */

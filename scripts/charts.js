@@ -21,6 +21,7 @@
 // setupData();
 const proxyURL = "https://cors-anywhere.herokuapp.com/";
 const ringRingApi = "http://ringring.jorrr.nl/geojson-data-ringring.json";
+const typesOfDayList = ["weekend", "doordeweeks"];
 const timeStampsList = [
   "00:00-06:00",
   "06:00-07:00",
@@ -45,6 +46,7 @@ const timeStampsList = [
 const svg = d3.select("svg");
 let data;
 let filteredData;
+let pieChartData;
 let g;
 //-- Position & Size --
 const width = 500;
@@ -75,14 +77,23 @@ function setupData() {
   durationPerTimestamp = d3
     .json(proxyURL + ringRingApi)
     .then((ringRingFetchedData) => {
-      console.log(ringRingFetchedData);
+      // console.log(ringRingFetchedData);
       const ringRingFeatures = ringRingFetchedData.features;
       console.log(ringRingFeatures);
+      const typeOfDay = getTypeOfDay(ringRingFeatures);
+      const typeOfDayCyclingRoutes = typesOfDayList.map((dayType) => {
+        const filteredTypeOfDay = filterDaytype(typeOfDay, dayType);
+        return {
+          dayType: dayType,
+          amountCyclingRoutes: getCycleRoutePerWeekend(
+            filteredTypeOfDay,
+            dayType
+          ),
+        };
+      });
       const timeStamps = getTimeStamp(ringRingFeatures);
-      // const timeStampsAndDuration = getDurationInMinutes(timeStamps);
       const timeStampsAndDistance = getDistance(timeStamps);
-      console.log(timeStampsAndDistance);
-      const durationPerTimestamp = timeStampsList.map((timeStamp) => {
+      const distancePerTimestamp = timeStampsList.map((timeStamp) => {
         const filteredTimestamp = filterTimestamp(
           timeStampsAndDistance,
           timeStamp
@@ -101,11 +112,12 @@ function setupData() {
           veryLongDistance: getVeryLongDistancePerTimestamp(filteredTimestamp),
         };
       });
-      data = durationPerTimestamp;
-      filteredData = durationPerTimestamp;
+      data = distancePerTimestamp;
+      filteredData = distancePerTimestamp;
+      pieChartData = typeOfDayCyclingRoutes;
       console.log(data);
       createDiagram();
-      initMap(ringRingFetchedData);
+      createPieChart();
     });
 }
 
@@ -115,71 +127,43 @@ function filterTimestamp(timeStampsAndDurationArray, timeStamp) {
   });
 }
 
-// function getShortDurationPerTimestamp(timeStampsAndDurationArray) {
-//   return timeStampsAndDurationArray.reduce((sum, route) => {
-//     if (route.duration === "short") {
-//       return sum + 1;
-//     }
-//     return sum;
-//   }, 0);
-// }
+function filterDaytype(typeOfDayList, typeOfDay) {
+  return typeOfDayList.filter((day) => {
+    return day === typeOfDay;
+  });
+}
 
-// function getMediumDurationPerTimestamp(timeStampsAndDurationArray) {
-//   return timeStampsAndDurationArray.reduce((sum, route) => {
-//     if (route.duration === "medium") {
-//       return sum + 1;
-//     }
-//     return sum;
-//   }, 0);
-// }
+function getTypeOfDay(ringRingList) {
+  return ringRingList.map((feature) => {
+    const convertedData = new Date(feature.properties.start);
+    const day = convertedData.getDay();
+    let typeOfDay;
+    if (day === 6 || day === 0) {
+      typeOfDay = "weekend";
+    } else {
+      typeOfDay = "doordeweeks";
+    }
+    return typeOfDay;
+  });
+}
 
-// function getLongDurationPerTimestamp(timeStampsAndDurationArray) {
-//   return timeStampsAndDurationArray.reduce((sum, route) => {
-//     if (route.duration === "long") {
-//       return sum + 1;
-//     }
-//     return sum;
-//   }, 0);
-// }
+function getCycleRoutePerWeekend(typeOfDayList, typeOfDay) {
+  return typeOfDayList.reduce((sum, day) => {
+    if (day === typeOfDay) {
+      return sum + 1;
+    }
+    return sum;
+  }, 0);
+}
 
-// function getAverageDistance(timeStamp, timeStampsList) {
-//   const currentTimeStampCollection = timeStampsList.filter(
-//     (feature) => feature.timeStamp === timeStamp
-//   );
-//   const totalDistance = currentTimeStampCollection.reduce((sum, route) => {
-//     return sum + route.properties.distance;
-//   }, 0);
-//   averageDistance = totalDistance / currentTimeStampCollection.length;
-//   if (isNaN(averageDistance)) {
-//     averageDistance = 0;
-//   }
-//   return averageDistance;
-// }
-
-// function getDurationInMinutes(ringRingFeatures) {
-//   return ringRingFeatures.map((feature) => {
-//     const duration = feature.properties.duration;
-//     if (duration <= 5) {
-//       return {
-//         properties: feature.properties,
-//         timeStamp: feature.timeStamp,
-//         duration: "short",
-//       };
-//     } else if (duration > 5 && duration <= 30) {
-//       return {
-//         properties: feature.properties,
-//         timeStamp: feature.timeStamp,
-//         duration: "medium",
-//       };
-//     } else {
-//       return {
-//         properties: feature.properties,
-//         timeStamp: feature.timeStamp,
-//         duration: "long",
-//       };
-//     }
-//   });
-// }
+function getCycleRouteDuringTheWeek(typeOfDayList) {
+  return typeOfDayList.reduce((sum, route) => {
+    if (route === "doordeweeks") {
+      return sum + 1;
+    }
+    return sum;
+  }, 0);
+}
 
 function getDistance(ringRingFeatures) {
   return ringRingFeatures.map((feature) => {
@@ -566,45 +550,53 @@ const updateBars = function () {
 
 setupData();
 
-// const svg = d3.select("svg");
-// const g = svg.append("g");
-// const projection = d3.geoMercator().center([5, 52.35]).scale(70000); //
+function createPieChart() {
+  const pieChartSVG = d3.select(".weekendChart"),
+    width = svg.attr("width"),
+    height = svg.attr("height");
 
-// const pathGenerator = d3.geoPath().projection(projection); // convert datapath into svg stringpath
+  // pieChartSVG.attr("width", "100").attr("height", "100");
 
-// d3.json("https://cartomap.github.io/nl/wgs84/gemeente_2020.topojson").then(
-//   (data) => {
-//     const community = topojson.feature(data, data.objects.gemeente_2020); //import the general data and the communities from the data while converting the topojson
+  const radius = 120;
+  const g = pieChartSVG
+    .append("g")
+    .attr("transform", `translate(${250 / 2}, ${250 / 2})`);
 
-//     g.selectAll("path")
-//       .data(community.features)
-//       .enter()
-//       .append("path")
-//       .attr("d", pathGenerator)
-//       .attr("fill", (d) => {
-//         if (d.properties.statnaam == "Amsterdam") {
-//           return "#DADADA";
-//         } else {
-//           return "#F6F6F6";
-//         }
-//       })
-//       .attr("stroke", "black")
-//       .attr("stroke-width", 0.5)
-//       .append("title")
-//       .text((d) => d.properties.statnaam);
-//   }
-// );
+  const color = d3.scaleOrdinal(["#f48a14", "#be3027"]);
 
-let map;
+  const pie = d3
+    .pie()
+    .sort(null)
+    .value((d) => d.amountCyclingRoutes);
 
-function initMap(geoJson) {
-  map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 4,
-    center: { lat: 0, lng: 0 },
-  });
-  map.data.loadGeoJson(
-    "https://cors-anywhere.herokuapp.com/http://ringring.jorrr.nl/geojson-data-ringring.json"
-  );
+  const path = d3
+    .arc()
+    .outerRadius(radius)
+    .innerRadius(radius - 40);
+
+  const label = d3
+    .arc()
+    .outerRadius(radius)
+    .innerRadius(radius - 90);
+
+  const pies = g
+    .selectAll(".arc")
+    .data(pie(pieChartData))
+    .enter()
+    .append("g")
+    .attr("class", "arc");
+
+  pies
+    .append("path")
+    .attr("d", path)
+    .attr("fill", (d) => color(d.data.amountCyclingRoutes));
+
+  pies
+    .append("text")
+    .attr("transform", function (d) {
+      return `translate(${label.centroid(d)})`;
+    })
+    .text((d) => d.data.dayType);
 }
 
 function goBack() {
