@@ -74,38 +74,31 @@
               <h2>Filter</h2>
               <ul>
                 <li>
-                  <input
-                    type="checkbox"
-                    id="filterUnknown"
-                    name="filterUnknown"
-                    disabled
-                  />
-                  <label for="filterUnknown">dummy filter</label>
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    id="filterBigBars"
-                    name="filterBigBars"
-                  />
-                  <label for="filterBigBars"
-                    >Inzoomen op de data (closed up view)</label
-                  >
+                  <input type="checkbox" id="filterDays" name="filterDays" />
+                  <label for="filterDays">Filter op dagen</label>
                 </li>
               </ul>
               <h2>Legenda</h2>
               <ul>
                 <li class="legendaItem">
-                  <div class="longDurationColor"></div>
-                  <p>Langer dan 30 minuten onderweg</p>
+                  <div class="veryLongDistanceColor"></div>
+                  <p>Fietsrit van meer dan 10 km</p>
                 </li>
                 <li class="legendaItem">
-                  <div class="mediumDurationColor"></div>
-                  <p>Tussen de 5 en 30 minuten onderweg</p>
+                  <div class="longDistanceColor"></div>
+                  <p>Fietsrit tussen de 4 en 10 km</p>
                 </li>
                 <li class="legendaItem">
-                  <div class="shortDurationColor"></div>
-                  <p>Korter dan 5 minuten onderweg</p>
+                  <div class="mediumDistanceColor"></div>
+                  <p>Fietsrit tussen de 2 en 4 km</p>
+                </li>
+                <li class="legendaItem">
+                  <div class="shortDistanceColor"></div>
+                  <p>Fietsrit tussen de 1 en 2 km</p>
+                </li>
+                <li class="legendaItem">
+                  <div class="veryShortDistanceColor"></div>
+                  <p>Fietsrit korter dan 1 km</p>
                 </li>
               </ul>
             </form>
@@ -115,6 +108,7 @@
       <div class="sidebar">
         <h2>Aantal fietsritten per dag</h2>
         <svg class="weekendChart"></svg>
+        <svg class="daysChart"></svg>
       </div>
     </main>
 

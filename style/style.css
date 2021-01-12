@@ -357,7 +357,7 @@ main {
 
 /* ########################### - D3 styling - ############################ */
 .durationChart {
-  width: 500px;
+  width: 700px;
   height: 400px;
 }
 
@@ -379,11 +379,17 @@ line {
   stroke: #dbdbdb;
 }
 
-.weekendChart {
+.weekendChart,
+.daysChart {
+  background: rgb(214, 214, 214);
   width: 250px;
   height: 250px;
   display: block;
   margin: 0 auto;
+}
+
+.daysChart {
+  margin-top: 1em;
 }
 
 .weekendChart .arc:first-child text {
@@ -507,24 +513,34 @@ input[type="checkbox"]:checked + label {
   font-size: 1em;
 }
 
-.longDurationColor,
-.mediumDurationColor,
-.shortDurationColor {
+.veryLongDistanceColor,
+.longDistanceColor,
+.mediumDistanceColor,
+.shortDistanceColor,
+.veryShortDistanceColor {
   width: 1.3em;
-  height: 2.2em;
+  height: 1em;
   flex-shrink: 0;
 }
 
-.longDurationColor {
-  background: #054488;
+.veryLongDistanceColor {
+  background: #f48a14;
 }
 
-.mediumDurationColor {
+.longDistanceColor {
+  background: #792987;
+}
+
+.mediumDistanceColor {
   background: #be3027;
 }
 
-.shortDurationColor {
-  background: #f48a14;
+.shortDistanceColor {
+  background: #026031;
+}
+
+.veryShortDistanceColor {
+  background: #054488;
 }
 
 /* ########################### - Map styling - ############################ */
