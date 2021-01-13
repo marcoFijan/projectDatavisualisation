@@ -66,6 +66,10 @@ const height = 400;
 const margin = { left: 70, right: 20, bottom: 100, top: 50 };
 const innerWidth = width - margin.left - margin.right;
 const innerHeight = height - margin.top - margin.bottom;
+
+// Labels
+let xAxisLabel = "Tijdstippen";
+let chartLabel = "Fietsritten per tijdstip";
 //-- Y & X Values --
 let stackGenerator = d3
   .stack()
@@ -464,7 +468,7 @@ function createDiagram() {
 
   // Create Diagram
   setColorScale();
-  setScales(data);
+  setScales(data, "Tijdsvak", "Aantal Fietsritten per tijdstip");
   setAxises();
   drawBar();
   checkInput();
@@ -569,10 +573,10 @@ function setAxises() {
     .attr("y", 80)
     .attr("x", innerWidth / 2)
     .attr("class", "xAxisName")
-    .text("Tijdsvak");
+    .text(xAxisLabel);
 
   g.append("text")
-    .text("Aantal fietsritten per tijdsvlak")
+    .text(chartLabel)
     .attr("y", -20)
     .attr("x", innerWidth / 2)
     .attr("text-anchor", "middle")
@@ -605,12 +609,12 @@ function checkInput() {
   // SOURCE FOR GENERAL IDEA FROM LAURENS AARNOUDSE: https://vizhub.com/Razpudding/c2a9c9b4fde84816931c404951c79873?edit=files&file=index.js
   // const bigBarFilter = d3.select("#filterBigBars").on("click", filterBigBars);
   const daysFilter = d3.select("#filterDays").on("click", filterOnDays);
-  const shortFilter = d3
-    .select("#filterShortDistance")
-    .on("click", filterShortDistance);
   const veryShortFilter = d3
     .select("#filterVeryShortDistance")
     .on("click", filterVeryShortDistance);
+  const shortFilter = d3
+    .select("#filterShortDistance")
+    .on("click", filterShortDistance);
   const mediumFilter = d3
     .select("#filterMediumDistance")
     .on("click", filterMediumDistance);
@@ -786,7 +790,7 @@ function filterMediumDistance() {
       filteredRangeKeys.splice(index, 1);
     }
   } else {
-    oldFilteredDomainKeys = filteredDomainKeys;
+    oldFilteredDomainKeys = filteredDomainKeys.map((domain) => domain);
     filteredDomainKeys = domainKeys.map((key) => key);
     filteredRangeKeys = rangeKeys.map((key) => key);
     console.log(filteredDomainKeys);

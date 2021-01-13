@@ -250,10 +250,8 @@ header > nav > ul > li > a {
 
 /* ########################### - main content styling - ############################ */
 .contentWrapper {
-  /* max-width: 65em; */
   width: 74%;
-  /* flex-grow: 4; */
-  min-height: 60vh;
+  min-height: 77vh;
   height: 100%;
 }
 
@@ -503,9 +501,14 @@ a:hover {
   background: white;
 }
 
-input[type="checkbox"]:checked + label {
+/* input[type="checkbox"]:checked + label {
   color: #be3027;
   font-weight: bold;
+} */
+
+input[type="checkbox"]:checked + label {
+  opacity: 0.4;
+  /* font-weight: bold; */
 }
 
 .durationChartWrapper h2 {
@@ -517,9 +520,10 @@ input[type="checkbox"]:checked + label {
 .longDistanceColor,
 .mediumDistanceColor,
 .shortDistanceColor,
-.veryShortDistanceColor {
-  width: 1.3em;
-  height: 1em;
+.veryShortDistanceColor,
+.dayIcon {
+  width: 1.6em;
+  height: 1.3em;
   flex-shrink: 0;
 }
 
@@ -530,6 +534,7 @@ ul .legendaItem input {
 .legendaItem label {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .labelDesc {
