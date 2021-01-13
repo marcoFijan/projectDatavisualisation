@@ -952,6 +952,25 @@ function updateBars() {
     .attr("fill", (d) => colorScale(d.key));
   const bars = layers.selectAll("rect").data((d) => d);
 
+  // Create new layers with retangles
+  g.selectAll(".layer")
+    .data(stackedBars)
+    .enter()
+    .append("g")
+    .attr("class", "layer")
+    .attr("fill", (d) => colorScale(d.key))
+    .selectAll("rect")
+    .data((d) => d)
+    .enter()
+    .append("rect")
+    .attr("x", (d) => scaleX(d.data.timeStamp))
+    .attr("y", (d) => scaleY(d[1]))
+    .attr("width", scaleX.bandwidth())
+    .attr("height", 0) // set height 0 for the transition
+    .transition()
+    .duration(800)
+    .attr("height", (d) => scaleY(d[0]) - scaleY(d[1]));
+
   // Update the layers and rectangles
   bars
     .attr("x", (d) => scaleX(d.data.timeStamp))
@@ -997,11 +1016,30 @@ function updateBarsDays() {
   setScalesDays(cyclingRoutesPerDayData);
 
   // Save the layers and collection of bars into variables
-  const layers = svg.selectAll(".layer").data(stackedBars);
+  const layers = svg
+    .selectAll(".layer")
+    .data(stackedBars)
+    .attr("fill", (d) => colorScale(d.key));
   const bars = layers.selectAll("rect").data((d) => d);
 
-  console.log(stackGenerator(cyclingRoutesPerDayData));
-  console.log(stackedBars);
+  // Create new layers
+  g.selectAll(".layer")
+    .data(stackedBars)
+    .enter()
+    .append("g")
+    .attr("class", "layer")
+    .attr("fill", (d) => colorScale(d.key))
+    .selectAll("rect")
+    .data((d) => d)
+    .enter()
+    .append("rect")
+    .attr("x", (d) => scaleX(d.data.day))
+    .attr("y", (d) => scaleY(d[1]))
+    .attr("width", scaleX.bandwidth())
+    .attr("height", 0) // set height 0 for the transition
+    .transition()
+    .duration(800)
+    .attr("height", (d) => scaleY(d[0]) - scaleY(d[1]));
 
   // Update the layers and rectangles
   bars
