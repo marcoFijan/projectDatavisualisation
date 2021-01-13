@@ -57,8 +57,8 @@
     </header>
 
     <main>
-      <div class="contentWrapper">
-        <div class="dashboardButtons">
+      <section class="contentWrapper">
+        <section class="dashboardButtons">
           <a href="forYou.html" class="dashboardButton">
             <img src="resources/dashboard.svg" alt="Dashboard icon" />
             <p>Datavisualisaties voor uw gebruik</p>
@@ -75,15 +75,22 @@
             <p>Feedbackoverzicht van de routes</p>
             Route ervaringen
           </a>
-        </div>
-        <div class="contentDetailWrapper contentMap">
-          <div id="map"></div>
-        </div>
-      </div>
-      <div class="sidebar"></div>
+        </section>
+        <section class="contentDetailWrapper contentMap contentMapHome">
+          <section class="contentHeadersTextHome">
+            <h1>Afgelegde fietsroutes Amsterdam</h1>
+            <h2>Alle routes afgelegd in Januari 2020</h2>
+          </section>
+          <div id="map" class="mapHome"></div>
+        </section>
+      </section>
+      <section class="sidebar">
+        <h1>Aantal fietsritten</h1>
+        <h2>In het weekend of doordeweeks</h2>
+      </section>
     </main>
 
     <footer></footer>
-    <script src="scripts/map.js"></script>
+    <script src="scripts/mapHome.js"></script>
   </body>
 </html>
