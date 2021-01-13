@@ -339,6 +339,8 @@ main {
   -webkit-box-shadow: 0px 0px 10px 2px #cacaca;
   box-shadow: 0px 0px 10px 2px #cacaca;
   border-radius: 0.2em;
+  padding: 1em;
+  box-sizing: border-box;
 }
 
 .sidebar h1,
@@ -346,10 +348,13 @@ main {
   word-wrap: normal;
 }
 
+.sidebar h1 {
+  font-size: 1.3em;
+}
+
 .sidebar h2 {
-  margin: 1em;
-  padding: 0.8em;
-  font-size: 1em;
+  padding-bottom: 0.8em;
+  font-size: 0.9em;
   border-bottom: 1px solid #cacaca;
 }
 
@@ -567,6 +572,80 @@ ul .legendaItem input {
   width: 100%;
 }
 
+.filterMapList {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7em, 1fr));
+  grid-gap: 0.5em;
+  padding: 0;
+}
+
+.filterMapList li input {
+  display: none;
+}
+
+/* .filterMapList li label p {
+  padding: 0.3em;
+  border: 1px solid black;
+} */
+
+.filterMapList input[type="checkbox"]:checked + label {
+  background-position: right;
+  color: white;
+  font-weight: 400;
+  opacity: 1;
+}
+
+.filterMapList label {
+  display: block;
+  text-align: center;
+  padding: 0.4em;
+  transition: all 0.5s ease-in;
+  background: linear-gradient(
+    90deg,
+    white,
+    white,
+    white,
+    rgba(190, 48, 39, 1),
+    rgb(219, 70, 59)
+  );
+  background-size: 400%;
+  border-radius: 0.2em;
+}
+
+.filterMapList .filterNight input[type="checkbox"]:checked + label {
+  border: 2px solid #054488;
+}
+
+.filterMapList .filterNight label {
+  border: 2px solid #054488;
+  background: linear-gradient(90deg, white, white, white, #054488, #0b5aaf);
+  background-size: 400%;
+}
+
+.filterMapList .filterDay label {
+  border: 2px solid #f48a14;
+  background: linear-gradient(90deg, white, white, white, #f48a14, #f39831);
+  background-size: 400%;
+}
+
+.filterMapList .filterRushHour label {
+  border: 2px solid rgba(190, 48, 39, 1);
+  background: linear-gradient(
+    90deg,
+    white,
+    white,
+    white,
+    rgba(190, 48, 39, 1),
+    rgb(219, 70, 59)
+  );
+  background-size: 400%;
+}
+
+.filterMapList label:hover {
+  background-position: center;
+}
+
 @media only screen and (max-width: 600px) {
   .signInIntroContent {
     padding-top: 1em;
@@ -628,6 +707,7 @@ ul .legendaItem input {
   border: none;
   color: white;
   font-weight: 400;
+  opacity: 1;
 }
 
 .feedbackSection label {
