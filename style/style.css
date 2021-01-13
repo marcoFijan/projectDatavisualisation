@@ -523,6 +523,19 @@ input[type="checkbox"]:checked + label {
   flex-shrink: 0;
 }
 
+ul .legendaItem input {
+  display: none;
+}
+
+.legendaItem label {
+  display: flex;
+  flex-direction: row;
+}
+
+.labelDesc {
+  font-size: 1em !important;
+}
+
 .veryLongDistanceColor {
   background: #f48a14;
 }

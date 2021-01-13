@@ -1,6 +1,8 @@
 // const proxyUrl = "https://cors-anywhere.herokuapp.com/";
 // const url = "../resources/export-details-amsterdam-binnenring.json";
 
+// const { domain } = require("process");
+
 // const { timeStamp } = require("console");
 
 // let data = [];
@@ -65,7 +67,7 @@ const margin = { left: 70, right: 20, bottom: 100, top: 50 };
 const innerWidth = width - margin.left - margin.right;
 const innerHeight = height - margin.top - margin.bottom;
 //-- Y & X Values --
-const stackGenerator = d3
+let stackGenerator = d3
   .stack()
   .keys([
     "veryShortDistance",
@@ -74,6 +76,32 @@ const stackGenerator = d3
     "longDistance",
     "veryLongDistance",
   ]);
+
+const domainKeys = [
+  "veryShortDistance",
+  "shortDistance",
+  "mediumDistance",
+  "longDistance",
+  "veryLongDistance",
+];
+const rangeKeys = ["#054488", "#026031", "#BE3027", "#792987", "#F48A14"];
+
+let filteredDomainKeys = [
+  "veryShortDistance",
+  "shortDistance",
+  "mediumDistance",
+  "longDistance",
+  "veryLongDistance",
+];
+let filteredRangeKeys = ["#054488", "#026031", "#BE3027", "#792987", "#F48A14"];
+let oldFilteredDomainKeys = [
+  "veryShortDistance",
+  "shortDistance",
+  "mediumDistance",
+  "longDistance",
+  "veryLongDistance",
+];
+
 const valueX = (d) => d.timeStamp;
 const valueX2 = (d) => d.day;
 let stackedBars;
@@ -221,15 +249,6 @@ function getTypeOfDay(ringRingList) {
 function getCycleRoutePerWeekend(typeOfDayList, typeOfDay) {
   return typeOfDayList.reduce((sum, day) => {
     if (day === typeOfDay) {
-      return sum + 1;
-    }
-    return sum;
-  }, 0);
-}
-
-function getCycleRouteDuringTheWeek(typeOfDayList) {
-  return typeOfDayList.reduce((sum, route) => {
-    if (route === "werkdagen") {
       return sum + 1;
     }
     return sum;
@@ -444,24 +463,38 @@ function createDiagram() {
   stackedBars = stackGenerator(filteredData);
 
   // Create Diagram
+  setColorScale();
   setScales(data);
   setAxises();
   drawBar();
   checkInput();
 }
 
-// Set the scales for the chart
-function setScales(data) {
+function setColorScale() {
   colorScale = d3
     .scaleOrdinal()
     .domain([
-      "veryLongDistance",
+      "veryShortDistance",
       "shortDistance",
       "mediumDistance",
       "longDistance",
       "veryLongDistance",
     ])
-    .range(["#F48A14", "#792987", "#BE3027", "#026031", "#054488"]);
+    .range(["#054488", "#026031", "#BE3027", "#792987", "#F48A14"]);
+}
+
+// Set the scales for the chart
+function setScales(data) {
+  // colorScale = d3
+  //   .scaleOrdinal()
+  //   .domain([
+  //     "veryLongDistance",
+  //     "shortDistance",
+  //     "mediumDistance",
+  //     "longDistance",
+  //     "veryLongDistance",
+  //   ])
+  //   .range(["#F48A14", "#792987", "#BE3027", "#026031", "#054488"]);
   // colorScale = d3
   //   .scaleOrdinal()
   //   .domain(["shortDuration", "mediumDuration", "longDuration"])
@@ -484,17 +517,6 @@ function setScales(data) {
 }
 
 function setScalesDays(data) {
-  colorScale = d3
-    .scaleOrdinal()
-    .domain([
-      "veryLongDistance",
-      "shortDistance",
-      "mediumDistance",
-      "longDistance",
-      "veryLongDistance",
-    ])
-    .range(["#F48A14", "#f45314", "#BE3027", "#630588", "#054488"]);
-
   scaleY = d3
     .scaleLinear()
     .domain([
@@ -583,6 +605,21 @@ function checkInput() {
   // SOURCE FOR GENERAL IDEA FROM LAURENS AARNOUDSE: https://vizhub.com/Razpudding/c2a9c9b4fde84816931c404951c79873?edit=files&file=index.js
   // const bigBarFilter = d3.select("#filterBigBars").on("click", filterBigBars);
   const daysFilter = d3.select("#filterDays").on("click", filterOnDays);
+  const shortFilter = d3
+    .select("#filterShortDistance")
+    .on("click", filterShortDistance);
+  const veryShortFilter = d3
+    .select("#filterVeryShortDistance")
+    .on("click", filterVeryShortDistance);
+  const mediumFilter = d3
+    .select("#filterMediumDistance")
+    .on("click", filterMediumDistance);
+  const longFilter = d3
+    .select("#filterLongDistance")
+    .on("click", filterLongDistance);
+  const veryLongFilter = d3
+    .select("#filterVeryLongDistance")
+    .on("click", filterVeryLongDistance);
 }
 
 // ## Update function for removing the bigest bar ##
@@ -632,13 +669,287 @@ function filterOnDays() {
   }
 }
 
+function filterVeryShortDistance() {
+  let filterOn = d3.select("#filterVeryShortDistance")._groups[0][0].checked;
+  if (filterOn) {
+    let index = filteredDomainKeys.indexOf("veryShortDistance");
+    if (index > -1) {
+      filteredDomainKeys.splice(index, 1);
+      filteredRangeKeys.splice(index, 1);
+    }
+  } else {
+    oldFilteredDomainKeys = filteredDomainKeys;
+    filteredDomainKeys = domainKeys.map((key) => key);
+    filteredRangeKeys = rangeKeys.map((key) => key);
+    console.log(filteredDomainKeys);
+    console.log(filteredRangeKeys);
+    if (!oldFilteredDomainKeys.includes("shortDistance")) {
+      let index = filteredDomainKeys.indexOf("veryShortDistance");
+      filteredDomainKeys.splice(index, 1);
+      filteredRangeKeys.splice(index, 1);
+    }
+    if (!oldFilteredDomainKeys.includes("mediumDistance")) {
+      let index = filteredDomainKeys.indexOf("mediumDistance");
+      filteredDomainKeys.splice(index, 1);
+      filteredRangeKeys.splice(index, 1);
+    }
+    if (!oldFilteredDomainKeys.includes("longDistance")) {
+      let index = filteredDomainKeys.indexOf("longDistance");
+      filteredDomainKeys.splice(index, 1);
+      filteredRangeKeys.splice(index, 1);
+    }
+    if (!oldFilteredDomainKeys.includes("veryLongDistance")) {
+      let index = filteredDomainKeys.indexOf("veryLongDistance");
+      filteredDomainKeys.splice(index, 1);
+      filteredRangeKeys.splice(index, 1);
+    }
+
+    // let index = filteredDomainKeys.indexOf("veryShortDistance")
+  }
+  colorScale = d3
+    .scaleOrdinal()
+    .domain(filteredDomainKeys)
+    .range(filteredRangeKeys);
+
+  stackGenerator = d3.stack().keys(filteredDomainKeys);
+  console.log(filteredData);
+  stackedBars = stackGenerator(filteredData);
+
+  let filterDays = d3.select("#filterDays")._groups[0][0].checked;
+  if (filterDays) {
+    updateBarsDays();
+  } else {
+    updateBars();
+  }
+}
+
+function filterShortDistance() {
+  let filterOn = d3.select("#filterShortDistance")._groups[0][0].checked;
+  if (filterOn) {
+    let index = filteredDomainKeys.indexOf("shortDistance");
+    if (index > -1) {
+      filteredDomainKeys.splice(index, 1);
+      filteredRangeKeys.splice(index, 1);
+    }
+  } else {
+    oldFilteredDomainKeys = filteredDomainKeys;
+    filteredDomainKeys = domainKeys.map((key) => key);
+    filteredRangeKeys = rangeKeys.map((key) => key);
+    console.log(filteredDomainKeys);
+    console.log(filteredRangeKeys);
+    if (!oldFilteredDomainKeys.includes("veryShortDistance")) {
+      let index = filteredDomainKeys.indexOf("veryShortDistance");
+      filteredDomainKeys.splice(index, 1);
+      filteredRangeKeys.splice(index, 1);
+    }
+    if (!oldFilteredDomainKeys.includes("mediumDistance")) {
+      let index = filteredDomainKeys.indexOf("mediumDistance");
+      filteredDomainKeys.splice(index, 1);
+      filteredRangeKeys.splice(index, 1);
+    }
+    if (!oldFilteredDomainKeys.includes("longDistance")) {
+      let index = filteredDomainKeys.indexOf("longDistance");
+      filteredDomainKeys.splice(index, 1);
+      filteredRangeKeys.splice(index, 1);
+    }
+    if (!oldFilteredDomainKeys.includes("veryLongDistance")) {
+      let index = filteredDomainKeys.indexOf("veryLongDistance");
+      filteredDomainKeys.splice(index, 1);
+      filteredRangeKeys.splice(index, 1);
+    }
+
+    // let index = filteredDomainKeys.indexOf("veryShortDistance")
+  }
+  colorScale = d3
+    .scaleOrdinal()
+    .domain(filteredDomainKeys)
+    .range(filteredRangeKeys);
+
+  stackGenerator = d3.stack().keys(filteredDomainKeys);
+  console.log(filteredData);
+  stackedBars = stackGenerator(filteredData);
+
+  let filterDays = d3.select("#filterDays")._groups[0][0].checked;
+  if (filterDays) {
+    updateBarsDays();
+  } else {
+    updateBars();
+  }
+}
+
+function filterMediumDistance() {
+  let filterOn = d3.select("#filterMediumDistance")._groups[0][0].checked;
+  if (filterOn) {
+    let index = filteredDomainKeys.indexOf("mediumDistance");
+    if (index > -1) {
+      filteredDomainKeys.splice(index, 1);
+      filteredRangeKeys.splice(index, 1);
+    }
+  } else {
+    oldFilteredDomainKeys = filteredDomainKeys;
+    filteredDomainKeys = domainKeys.map((key) => key);
+    filteredRangeKeys = rangeKeys.map((key) => key);
+    console.log(filteredDomainKeys);
+    console.log(filteredRangeKeys);
+    if (!oldFilteredDomainKeys.includes("veryShortDistance")) {
+      let index = filteredDomainKeys.indexOf("veryShortDistance");
+      filteredDomainKeys.splice(index, 1);
+      filteredRangeKeys.splice(index, 1);
+    }
+    if (!oldFilteredDomainKeys.includes("shortDistance")) {
+      let index = filteredDomainKeys.indexOf("mediumDistance");
+      filteredDomainKeys.splice(index, 1);
+      filteredRangeKeys.splice(index, 1);
+    }
+    if (!oldFilteredDomainKeys.includes("longDistance")) {
+      let index = filteredDomainKeys.indexOf("longDistance");
+      filteredDomainKeys.splice(index, 1);
+      filteredRangeKeys.splice(index, 1);
+    }
+    if (!oldFilteredDomainKeys.includes("veryLongDistance")) {
+      let index = filteredDomainKeys.indexOf("veryLongDistance");
+      filteredDomainKeys.splice(index, 1);
+      filteredRangeKeys.splice(index, 1);
+    }
+
+    // let index = filteredDomainKeys.indexOf("veryShortDistance")
+  }
+  colorScale = d3
+    .scaleOrdinal()
+    .domain(filteredDomainKeys)
+    .range(filteredRangeKeys);
+
+  stackGenerator = d3.stack().keys(filteredDomainKeys);
+  console.log(filteredData);
+  stackedBars = stackGenerator(filteredData);
+
+  let filterDays = d3.select("#filterDays")._groups[0][0].checked;
+  if (filterDays) {
+    updateBarsDays();
+  } else {
+    updateBars();
+  }
+}
+
+function filterLongDistance() {
+  let filterOn = d3.select("#filterLongDistance")._groups[0][0].checked;
+  if (filterOn) {
+    let index = filteredDomainKeys.indexOf("longDistance");
+    if (index > -1) {
+      filteredDomainKeys.splice(index, 1);
+      filteredRangeKeys.splice(index, 1);
+    }
+  } else {
+    oldFilteredDomainKeys = filteredDomainKeys;
+    filteredDomainKeys = domainKeys.map((key) => key);
+    filteredRangeKeys = rangeKeys.map((key) => key);
+    console.log(filteredDomainKeys);
+    console.log(filteredRangeKeys);
+    if (!oldFilteredDomainKeys.includes("veryShortDistance")) {
+      let index = filteredDomainKeys.indexOf("veryShortDistance");
+      filteredDomainKeys.splice(index, 1);
+      filteredRangeKeys.splice(index, 1);
+    }
+    if (!oldFilteredDomainKeys.includes("mediumDistance")) {
+      let index = filteredDomainKeys.indexOf("mediumDistance");
+      filteredDomainKeys.splice(index, 1);
+      filteredRangeKeys.splice(index, 1);
+    }
+    if (!oldFilteredDomainKeys.includes("shortDistance")) {
+      let index = filteredDomainKeys.indexOf("shortDistance");
+      filteredDomainKeys.splice(index, 1);
+      filteredRangeKeys.splice(index, 1);
+    }
+    if (!oldFilteredDomainKeys.includes("veryLongDistance")) {
+      let index = filteredDomainKeys.indexOf("veryLongDistance");
+      filteredDomainKeys.splice(index, 1);
+      filteredRangeKeys.splice(index, 1);
+    }
+
+    // let index = filteredDomainKeys.indexOf("veryShortDistance")
+  }
+  colorScale = d3
+    .scaleOrdinal()
+    .domain(filteredDomainKeys)
+    .range(filteredRangeKeys);
+
+  stackGenerator = d3.stack().keys(filteredDomainKeys);
+  console.log(filteredData);
+  stackedBars = stackGenerator(filteredData);
+
+  let filterDays = d3.select("#filterDays")._groups[0][0].checked;
+  if (filterDays) {
+    updateBarsDays();
+  } else {
+    updateBars();
+  }
+}
+
+function filterVeryLongDistance() {
+  let filterOn = d3.select("#filterVeryLongDistance")._groups[0][0].checked;
+  if (filterOn) {
+    let index = filteredDomainKeys.indexOf("veryLongDistance");
+    if (index > -1) {
+      filteredDomainKeys.splice(index, 1);
+      filteredRangeKeys.splice(index, 1);
+    }
+  } else {
+    oldFilteredDomainKeys = filteredDomainKeys;
+    filteredDomainKeys = domainKeys.map((key) => key);
+    filteredRangeKeys = rangeKeys.map((key) => key);
+    console.log(filteredDomainKeys);
+    console.log(filteredRangeKeys);
+    if (!oldFilteredDomainKeys.includes("veryShortDistance")) {
+      let index = filteredDomainKeys.indexOf("veryShortDistance");
+      filteredDomainKeys.splice(index, 1);
+      filteredRangeKeys.splice(index, 1);
+    }
+    if (!oldFilteredDomainKeys.includes("mediumDistance")) {
+      let index = filteredDomainKeys.indexOf("mediumDistance");
+      filteredDomainKeys.splice(index, 1);
+      filteredRangeKeys.splice(index, 1);
+    }
+    if (!oldFilteredDomainKeys.includes("longDistance")) {
+      let index = filteredDomainKeys.indexOf("longDistance");
+      filteredDomainKeys.splice(index, 1);
+      filteredRangeKeys.splice(index, 1);
+    }
+    if (!oldFilteredDomainKeys.includes("shortDistance")) {
+      let index = filteredDomainKeys.indexOf("shortDistance");
+      filteredDomainKeys.splice(index, 1);
+      filteredRangeKeys.splice(index, 1);
+    }
+
+    // let index = filteredDomainKeys.indexOf("veryShortDistance")
+  }
+  colorScale = d3
+    .scaleOrdinal()
+    .domain(filteredDomainKeys)
+    .range(filteredRangeKeys);
+
+  stackGenerator = d3.stack().keys(filteredDomainKeys);
+  console.log(filteredData);
+  stackedBars = stackGenerator(filteredData);
+
+  let filterDays = d3.select("#filterDays")._groups[0][0].checked;
+  if (filterDays) {
+    updateBarsDays();
+  } else {
+    updateBars();
+  }
+}
+
 // ## General update function ##
 function updateBars() {
   stackedBars = stackGenerator(filteredData);
   setScales(filteredData);
+  console.log(stackGenerator(filteredData));
 
   // Save the layers and collection of bars into variables
-  const layers = svg.selectAll(".layer").data(stackedBars);
+  const layers = svg
+    .selectAll(".layer")
+    .data(stackedBars)
+    .attr("fill", (d) => colorScale(d.key));
   const bars = layers.selectAll("rect").data((d) => d);
 
   // Update the layers and rectangles
@@ -665,6 +976,7 @@ function updateBars() {
 
   // Remove non existing retangles
   bars.exit().remove();
+  layers.exit().remove();
 
   // Call the x-axis
   const callXAxis = svg.select(".xAxis").call(d3.axisBottom(scaleX));
@@ -715,6 +1027,7 @@ function updateBarsDays() {
 
   // Remove non existing retangles
   bars.exit().remove();
+  layers.exit().remove();
 
   // Call the x-axis
   const callXAxis = svg.select(".xAxis").call(d3.axisBottom(scaleX));

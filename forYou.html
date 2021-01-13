@@ -81,24 +81,59 @@
               <h2>Legenda</h2>
               <ul>
                 <li class="legendaItem">
-                  <div class="veryLongDistanceColor"></div>
-                  <p>Fietsrit van meer dan 10 km</p>
+                  <input
+                    type="checkbox"
+                    id="filterVeryLongDistance"
+                    name="filterVeryLongDistance"
+                  />
+                  <label for="filterVeryLongDistance">
+                    <div class="veryLongDistanceColor"></div>
+                    <p class="labelDesc">Fietsrit van meer dan 10 km</p>
+                  </label>
                 </li>
                 <li class="legendaItem">
-                  <div class="longDistanceColor"></div>
-                  <p>Fietsrit tussen de 4 en 10 km</p>
+                  <input
+                    type="checkbox"
+                    id="filterLongDistance"
+                    name="filterLongDistance"
+                  />
+                  <label for="filterLongDistance">
+                    <div class="longDistanceColor"></div>
+                    <p class="labelDesc">Fietsrit tussen de 4 en 10 km</p>
+                  </label>
                 </li>
                 <li class="legendaItem">
-                  <div class="mediumDistanceColor"></div>
-                  <p>Fietsrit tussen de 2 en 4 km</p>
+                  <input
+                    type="checkbox"
+                    id="filterMediumDistance"
+                    name="filterMediumDistance"
+                  />
+                  <label for="filterMediumDistance">
+                    <div class="mediumDistanceColor"></div>
+                    <p class="labelDesc">Fietsrit tussen de 2 en 4 km</p>
+                  </label>
                 </li>
                 <li class="legendaItem">
-                  <div class="shortDistanceColor"></div>
-                  <p>Fietsrit tussen de 1 en 2 km</p>
+                  <input
+                    type="checkbox"
+                    id="filterShortDistance"
+                    name="filterShortDistance"
+                  />
+                  <label for="filterShortDistance">
+                    <div class="shortDistanceColor"></div>
+                    <p class="labelDesc">Fietsrit tussen de 1 en 2 km</p>
+                  </label>
                 </li>
                 <li class="legendaItem">
-                  <div class="veryShortDistanceColor"></div>
-                  <p>Fietsrit korter dan 1 km</p>
+                  <input
+                    type="checkbox"
+                    id="filterVeryShortDistance"
+                    name="filterVeryShortDistance"
+                  />
+                  <label for="filterVeryShortDistance">
+                    <div class="veryShortDistanceColor"></div>
+                    <p class="labelDesc">Fietsrit korter dan 1 km</p>
+                  </label>
                 </li>
               </ul>
             </form>
