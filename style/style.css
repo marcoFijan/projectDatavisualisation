@@ -82,6 +82,25 @@ strong {
   top: 40vh;
   /* transform: translateX(-50%); */
 }
+/* 
+.overSignInDetail {
+  position: absolute;
+  right: 0;
+  flex-grow: 1;
+  min-width: 40%;
+  height: 100%;
+  background: #c42116;
+  color: white;
+  fill: white;
+  box-sizing: border-box;
+  border-left: 1px solid white;
+  padding: 5em;
+  justify-content: center;
+}
+
+.overSignInDetail img {
+  fill: white;
+} */
 
 .signInDetail {
   flex-grow: 1;
@@ -266,14 +285,16 @@ main {
 
 .dashboardButtons {
   width: 100%;
+  height: 22%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(9em, 1fr));
-  grid-gap: 2em;
-  margin-bottom: 1em;
+  grid-gap: 1rem;
+  box-sizing: border-box;
+  padding-bottom: 1rem;
 }
 
 .dashboardButton {
-  height: 7.5em;
+  height: 100%;
   /* max-width: 21em; */
   background: rgb(190, 48, 39);
   background: linear-gradient(
@@ -458,12 +479,24 @@ line {
 
 .contentMapHome {
   padding: 0;
-  max-height: 57vh;
+  /* min-height: 57vh; */
+  height: 78%;
 }
 
 .contentMap .contentHeader,
 .contentHeadersTextHome {
   padding: 1rem 1.5rem 0 1.5rem;
+}
+
+.contentHeadersTextHome {
+  height: 20%;
+  box-sizing: border-box;
+}
+
+.contentHeadersTextHome h2 {
+  padding-bottom: 1rem;
+  box-sizing: border-box;
+  border-bottom: 1px solid #cacaca;
 }
 
 .contentDetailWrapper h1 {
@@ -623,7 +656,7 @@ ul .legendaItem input {
 }
 
 .mapHome {
-  height: 46vh !important;
+  height: 80% !important;
 }
 
 .filterMapList {
@@ -726,29 +759,14 @@ ul .legendaItem input {
 .feedbackSection li {
   border-bottom: 0.6px solid #cacaca;
   display: grid;
-  grid-template-columns: 1fr 1fr 6fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 6fr 1fr 1fr 1fr;
   align-items: center;
   padding: 1em;
 }
 
-/* .feedbackSection li img:first-child {
-  margin: 0 1em;
+.feedbackSection label {
+  text-align: center;
 }
-
-.feedbackTime {
-  margin: 0 1em;
-  width: 3em;
-}
-
-.feedbackDistance {
-  margin: 0 1em;
-  width: 12em;
-}
-
-.feedbackSection li img:last-child {
-  margin: 0 1em;
-  width: 10em;
-} */
 
 .feedbackSection img {
   max-height: 2em;

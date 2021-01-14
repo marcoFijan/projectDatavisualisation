@@ -1,3 +1,6 @@
+const fs = require("fs");
+const localRingRingGeojson = require("../resources/ritten.geojson");
+
 const feedbackCollection = [
   {
     feedbackScore: "positief",
@@ -166,49 +169,167 @@ const feedbackCollection = [
 let feedbackSection = document.querySelector(".feedbackSection");
 let counter = 0;
 
-feedbackCollection.forEach((feedback) => {
-  const listItem = document.createElement("li");
-  const feedbackDescription = document.createElement("p");
-  const feedbackTime = document.createElement("p");
-  const feedbackDistance = document.createElement("p");
-  const profileIcon = document.createElement("img");
-  const feedbackScoreImg = document.createElement("img");
-  const saveCheckbox = document.createElement("input");
-  const saveLabel = document.createElement("label");
-  counter++;
+const feedbackGeojson =
+  "https://gist.githubusercontent.com/marcoFijan/25af63feca09e33fd0542718b3407d84/raw/d03523ba95352a2058a16f61fdd5d390d10ffa15/ringRingGeojson";
+const proxyURL = "https://cors-anywhere.herokuapp.com/";
 
-  feedbackDescription.textContent = feedback.feedback;
-  feedbackTime.textContent = "20:18";
-  feedbackDistance.textContent = "2.1km";
-  feedbackScoreImg.src = getFeedbackIcon(feedback);
-  profileIcon.src = "./resources/avatar.svg";
-  saveCheckbox.type = "checkbox";
-  saveCheckbox.id = "saveFeedback" + counter;
-  saveCheckbox.name = "saveFeedback" + counter;
-  saveLabel.htmlFor = "saveFeedback" + counter;
-  saveLabel.textContent = "Bewaren";
+async function setupData() {
+  //   const feedbackData = await getData();
+  const feedbackData = fs.readFile(
+    localRingRingGeojson,
+    "utf8",
+    function (err, data) {
+      try {
+        data = JSON.parse(data);
+        feedbackFeatures = data.features;
+        createFeedbackList(feedbackFeatures);
+      } catch (e) {}
+    }
+  );
+  //   feedbackFeatures = feedbackData.features;
+  //   createFeedbackList(feedbackFeatures);
+  //   console.log(feedbackFeatures);
+}
 
-  feedbackTime.classList.add("feedbackTime");
-  feedbackDistance.classList.add("feedbackDistance");
+async function getData() {
+  console.log("trying...");
+  //   const response = await fetch(proxyURL + feedbackGeojson);
+  const response = await fetch(proxyURL + "../resources/ritten.geojson");
+  const json = await response.json();
+  return await json;
+}
 
-  listItem.appendChild(profileIcon);
-  listItem.appendChild(feedbackTime);
-  listItem.appendChild(feedbackDescription);
-  listItem.appendChild(feedbackDistance);
-  listItem.appendChild(feedbackScoreImg);
-  listItem.appendChild(saveCheckbox);
-  listItem.appendChild(saveLabel);
+function createFeedbackList(feedbackFeatures) {
+  feedbackFeatures.forEach((feedback) => {
+    // Create needed elements
+    const listItem = document.createElement("li");
+    const feedbackDescription = document.createElement("p");
+    const feedbackTime = document.createElement("p");
+    const feedbackDate = document.createElement("p");
+    const feedbackDistance = document.createElement("p");
+    const profileIcon = document.createElement("img");
+    const feedbackScoreImg = document.createElement("img");
+    const saveCheckbox = document.createElement("input");
+    const saveLabel = document.createElement("label");
+    counter++;
 
-  feedbackSection.appendChild(listItem);
-});
+    // Get dates
+    const date = new Date(feedback.properties.start);
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
 
-function getFeedbackIcon(feedback) {
-  if (feedback.feedbackScore === "neutraal") {
+    // Editable dates
+    let correctedHours = hours;
+    let correctedMinutes = minutes;
+    let correctedDay = day;
+    let correctedMonth = month;
+
+    // add 0 if hours is less then 9
+    if (hours.toString().length < 2) {
+      correctedHours = "0" + correctedHours;
+    }
+
+    // add 0 if minutes is less then 9
+    if (minutes.toString().length < 2) {
+      correctedMinutes = "0" + correctedMinutes;
+    }
+
+    // add 0 if daynumber is less then 9
+    if (day.toString().length < 2) {
+      correctedDay = "0" + correctedDay;
+    }
+
+    if (month.toString().length < 2) {
+      correctedMonth = "0" + correctedMonth;
+    }
+
+    // set time and date in correct format
+    const time = correctedHours + ":" + correctedMinutes;
+    const calendarDate = correctedDay + "-" + correctedMonth + "-" + year;
+
+    // set content for elements
+    feedbackDescription.textContent = feedback.properties.feedback;
+    feedbackTime.textContent = time;
+    feedbackDate.textContent = calendarDate;
+    feedbackDistance.textContent = feedback.properties.distance + "km";
+    feedbackScoreImg.src = getFeedbackIcon(
+      feedback.properties["feedback score"]
+    );
+    profileIcon.src = "./resources/avatar.svg";
+    saveCheckbox.type = "checkbox";
+    saveCheckbox.id = "saveFeedback" + counter;
+    saveCheckbox.name = "saveFeedback" + counter;
+    saveLabel.htmlFor = "saveFeedback" + counter;
+    saveLabel.textContent = "Bewaren";
+
+    feedbackTime.classList.add("feedbackTime");
+    feedbackDistance.classList.add("feedbackDistance");
+
+    listItem.appendChild(profileIcon);
+    listItem.appendChild(feedbackTime);
+    listItem.appendChild(feedbackDate);
+    listItem.appendChild(feedbackDescription);
+    listItem.appendChild(feedbackDistance);
+    listItem.appendChild(feedbackScoreImg);
+    listItem.appendChild(saveCheckbox);
+    listItem.appendChild(saveLabel);
+
+    feedbackSection.appendChild(listItem);
+
+    // console.log(feedback.properties["feedback score"]);
+  });
+}
+
+setupData();
+
+// feedbackCollection.forEach((feedback) => {
+//   const listItem = document.createElement("li");
+//   const feedbackDescription = document.createElement("p");
+//   const feedbackTime = document.createElement("p");
+//   const feedbackDistance = document.createElement("p");
+//   const profileIcon = document.createElement("img");
+//   const feedbackScoreImg = document.createElement("img");
+//   const saveCheckbox = document.createElement("input");
+//   const saveLabel = document.createElement("label");
+//   counter++;
+
+//   feedbackDescription.textContent = feedback.feedback;
+//   feedbackTime.textContent = "20:18";
+//   feedbackDistance.textContent = "2.1km";
+//   feedbackScoreImg.src = getFeedbackIcon(feedback);
+//   profileIcon.src = "./resources/avatar.svg";
+//   saveCheckbox.type = "checkbox";
+//   saveCheckbox.id = "saveFeedback" + counter;
+//   saveCheckbox.name = "saveFeedback" + counter;
+//   saveLabel.htmlFor = "saveFeedback" + counter;
+//   saveLabel.textContent = "Bewaren";
+
+//   feedbackTime.classList.add("feedbackTime");
+//   feedbackDistance.classList.add("feedbackDistance");
+
+//   listItem.appendChild(profileIcon);
+//   listItem.appendChild(feedbackTime);
+//   listItem.appendChild(feedbackDescription);
+//   listItem.appendChild(feedbackDistance);
+//   listItem.appendChild(feedbackScoreImg);
+//   listItem.appendChild(saveCheckbox);
+//   listItem.appendChild(saveLabel);
+
+//   feedbackSection.appendChild(listItem);
+// });
+
+function getFeedbackIcon(feedbackScore) {
+  if (feedbackScore === 2) {
     return "./resources/score_neutral.svg";
-  } else if (feedback.feedbackScore === "negatief") {
+  } else if (feedbackScore === 3) {
     return "./resources/score_bad.svg";
-  } else {
+  } else if (feedbackScore === 1) {
     return "./resources/score_good.svg";
+  } else {
+    return "./resources/score_unknown.svg";
   }
 }
 

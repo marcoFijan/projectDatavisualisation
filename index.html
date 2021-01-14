@@ -11,37 +11,38 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,500&family=Varela+Round&display=swap"
       rel="stylesheet"
     />
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1qxpqXbcv6eQyOsfjeex-VjmM_yoIcmI&callback=initMap&libraries=&v=weekly"
-      defer
-    ></script>
+    <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script> -->
+
     <script src="https://d3js.org/d3.v6.min.js"></script>
   </head>
   <body>
-    <div class="signInWrapper">
-      <div class="signInIntro">
-        <div class="ringRingerWrapper">
+    <section class="signInWrapper">
+      <section class="signInIntro">
+        <section class="ringRingerWrapper">
           <img
             src="resources/ringRinger.svg"
             alt="ringRinger logo"
             class="ringRinger"
           />
-        </div>
-        <div class="signInIntroContent">
+        </section>
+        <section class="signInIntroContent">
           <img
             src="resources/signInKey.svg"
             alt="image of a key"
             class="keyImage"
           />
-          <div class="headerWrapper">
+          <section class="headerWrapper">
             <h1>Policymaker</h1>
             <h1>Portal</h1>
-          </div>
+          </section>
           <p>Powered by Ring - Ring</p>
-        </div>
-      </div>
-      <div class="signInDetail">
+        </section>
+      </section>
+      <!-- <section class="overSignInDetail">
+        <h2>Ontdek de drukste routes van de gebruikers</h2>
+        <img src="resources/right-2.svg" alt="arrowButton" />
+      </section> -->
+      <section class="signInDetail">
         <h1>Please log in and <strong>work together!</strong></h1>
         <form>
           <label for="username">Username</label>
@@ -65,8 +66,8 @@
           >
           <a class="logInButton" href="dashboard.html">Proceed to workroom</a>
         </form>
-      </div>
-    </div>
+      </section>
+    </section>
 
     <footer></footer>
     <script src="scripts/durationChart.js"></script>
