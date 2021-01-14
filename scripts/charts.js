@@ -1,28 +1,8 @@
-// const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-// const url = "../resources/export-details-amsterdam-binnenring.json";
-
-// const { domain } = require("process");
-
-// const { timeStamp } = require("console");
-
-// let data = [];
-
-// async function setupData() {
-//   data = await getData();
-//   console.log(data);
-//   return data;
-// }
-
-// async function getData() {
-//   const response = await fetch(proxyUrl + url);
-//   console.log(response);
-//   const json = await response.json();
-//   return await json;
-// }
-
-// setupData();
+// URLs
 const proxyURL = "https://cors-anywhere.herokuapp.com/";
 const ringRingApi = "http://ringring.jorrr.nl/geojson-data-ringring.json";
+
+// Lists
 const typesOfDayList = ["weekend", "werkdagen"];
 const daysList = [
   "Maandag",
@@ -53,14 +33,15 @@ const timeStampsList = [
 ];
 
 //## SET D3 VARIABLES ##
-//-- General --
+// General
 const svg = d3.select("svg");
 let data;
 let filteredData;
 let pieChartData;
 let cyclingRoutesPerDayData;
 let g;
-//-- Position & Size --
+
+// Position & Size
 const width = 700;
 const height = 400;
 const margin = { left: 70, right: 20, bottom: 100, top: 50 };
@@ -70,7 +51,8 @@ const innerHeight = height - margin.top - margin.bottom;
 // Labels
 let xAxisLabel = "Tijdstippen";
 let chartLabel = "Fietsritten per tijdstip";
-//-- Y & X Values --
+
+// Set yValues
 let stackGenerator = d3
   .stack()
   .keys([
@@ -81,6 +63,7 @@ let stackGenerator = d3
     "veryLongDistance",
   ]);
 
+// Standard domain keys
 const domainKeys = [
   "veryShortDistance",
   "shortDistance",
@@ -88,8 +71,11 @@ const domainKeys = [
   "longDistance",
   "veryLongDistance",
 ];
+
+// Standard range keys
 const rangeKeys = ["#054488", "#026031", "#BE3027", "#792987", "#F48A14"];
 
+// Editable domain keys
 let filteredDomainKeys = [
   "veryShortDistance",
   "shortDistance",
@@ -97,6 +83,8 @@ let filteredDomainKeys = [
   "longDistance",
   "veryLongDistance",
 ];
+
+// Editable range keys
 let filteredRangeKeys = ["#054488", "#026031", "#BE3027", "#792987", "#F48A14"];
 let oldFilteredDomainKeys = [
   "veryShortDistance",
@@ -106,6 +94,7 @@ let oldFilteredDomainKeys = [
   "veryLongDistance",
 ];
 
+// Set xValues
 const valueX = (d) => d.timeStamp;
 const valueX2 = (d) => d.day;
 let stackedBars;
@@ -116,6 +105,7 @@ let scaleX;
 
 durationPerTimestamp = [];
 
+// setup the data
 function setupData() {
   // fetch the data with d3
   durationPerTimestamp = d3
@@ -123,6 +113,10 @@ function setupData() {
     .then((ringRingFetchedData) => {
       // navigate to features
       const ringRingFeatures = ringRingFetchedData.features;
+
+      // Create first simple datavisualisation
+      amountCyclingRoutes(ringRingFeatures);
+      amountCyclingDistance(ringRingFeatures);
 
       // Create object with daytypes - weekend or workday
       const typeOfDay = getTypeOfDay(ringRingFeatures);
@@ -148,7 +142,6 @@ function setupData() {
       // Create object with days - monday, tuesday etc
       const cyclingRoutesPerDay = daysList.map((day) => {
         const filterDays = filterDay(timeStampsAndDistance, day);
-        console.log(filterDays);
 
         return {
           day: day,
@@ -184,10 +177,38 @@ function setupData() {
       filteredData = distancePerTimestamp;
       pieChartData = typeOfDayCyclingRoutes;
       cyclingRoutesPerDayData = cyclingRoutesPerDay;
-      console.log(data);
+      console.log(ringRingFeatures);
       createDiagram();
       createPieChart();
     });
+}
+
+function amountCyclingRoutes(featuresData) {
+  const amountBikeRoutes = document.querySelector(".amountBikeRoutes");
+  const header = document.createElement("h3");
+  const para = document.createElement("p");
+
+  header.textContent = featuresData.length;
+  para.textContent = "fietsritten in totaal";
+
+  amountBikeRoutes.appendChild(header);
+  amountBikeRoutes.appendChild(para);
+}
+
+function amountCyclingDistance(featuresData) {
+  const totalDistance = featuresData.reduce((sum, route) => {
+    return sum + route.properties.distance;
+  }, 0);
+
+  const amountDistance = document.querySelector(".amountDistance");
+  const header = document.createElement("h3");
+  const para = document.createElement("p");
+
+  header.textContent = Math.round(totalDistance) + "km";
+  para.textContent = "In totaal gefietst deze maand";
+
+  amountDistance.appendChild(header);
+  amountDistance.appendChild(para);
 }
 
 function filterTimestamp(timeStampsAndDurationArray, timeStamp) {
@@ -685,8 +706,6 @@ function filterVeryShortDistance() {
     oldFilteredDomainKeys = filteredDomainKeys;
     filteredDomainKeys = domainKeys.map((key) => key);
     filteredRangeKeys = rangeKeys.map((key) => key);
-    console.log(filteredDomainKeys);
-    console.log(filteredRangeKeys);
     if (!oldFilteredDomainKeys.includes("shortDistance")) {
       let index = filteredDomainKeys.indexOf("veryShortDistance");
       filteredDomainKeys.splice(index, 1);
@@ -716,7 +735,6 @@ function filterVeryShortDistance() {
     .range(filteredRangeKeys);
 
   stackGenerator = d3.stack().keys(filteredDomainKeys);
-  console.log(filteredData);
   stackedBars = stackGenerator(filteredData);
 
   let filterDays = d3.select("#filterDays")._groups[0][0].checked;
@@ -739,8 +757,6 @@ function filterShortDistance() {
     oldFilteredDomainKeys = filteredDomainKeys;
     filteredDomainKeys = domainKeys.map((key) => key);
     filteredRangeKeys = rangeKeys.map((key) => key);
-    console.log(filteredDomainKeys);
-    console.log(filteredRangeKeys);
     if (!oldFilteredDomainKeys.includes("veryShortDistance")) {
       let index = filteredDomainKeys.indexOf("veryShortDistance");
       filteredDomainKeys.splice(index, 1);
@@ -770,7 +786,6 @@ function filterShortDistance() {
     .range(filteredRangeKeys);
 
   stackGenerator = d3.stack().keys(filteredDomainKeys);
-  console.log(filteredData);
   stackedBars = stackGenerator(filteredData);
 
   let filterDays = d3.select("#filterDays")._groups[0][0].checked;
@@ -793,8 +808,6 @@ function filterMediumDistance() {
     oldFilteredDomainKeys = filteredDomainKeys.map((domain) => domain);
     filteredDomainKeys = domainKeys.map((key) => key);
     filteredRangeKeys = rangeKeys.map((key) => key);
-    console.log(filteredDomainKeys);
-    console.log(filteredRangeKeys);
     if (!oldFilteredDomainKeys.includes("veryShortDistance")) {
       let index = filteredDomainKeys.indexOf("veryShortDistance");
       filteredDomainKeys.splice(index, 1);
@@ -824,7 +837,6 @@ function filterMediumDistance() {
     .range(filteredRangeKeys);
 
   stackGenerator = d3.stack().keys(filteredDomainKeys);
-  console.log(filteredData);
   stackedBars = stackGenerator(filteredData);
 
   let filterDays = d3.select("#filterDays")._groups[0][0].checked;
@@ -847,8 +859,6 @@ function filterLongDistance() {
     oldFilteredDomainKeys = filteredDomainKeys;
     filteredDomainKeys = domainKeys.map((key) => key);
     filteredRangeKeys = rangeKeys.map((key) => key);
-    console.log(filteredDomainKeys);
-    console.log(filteredRangeKeys);
     if (!oldFilteredDomainKeys.includes("veryShortDistance")) {
       let index = filteredDomainKeys.indexOf("veryShortDistance");
       filteredDomainKeys.splice(index, 1);
@@ -878,7 +888,6 @@ function filterLongDistance() {
     .range(filteredRangeKeys);
 
   stackGenerator = d3.stack().keys(filteredDomainKeys);
-  console.log(filteredData);
   stackedBars = stackGenerator(filteredData);
 
   let filterDays = d3.select("#filterDays")._groups[0][0].checked;
@@ -901,8 +910,6 @@ function filterVeryLongDistance() {
     oldFilteredDomainKeys = filteredDomainKeys;
     filteredDomainKeys = domainKeys.map((key) => key);
     filteredRangeKeys = rangeKeys.map((key) => key);
-    console.log(filteredDomainKeys);
-    console.log(filteredRangeKeys);
     if (!oldFilteredDomainKeys.includes("veryShortDistance")) {
       let index = filteredDomainKeys.indexOf("veryShortDistance");
       filteredDomainKeys.splice(index, 1);
@@ -932,7 +939,6 @@ function filterVeryLongDistance() {
     .range(filteredRangeKeys);
 
   stackGenerator = d3.stack().keys(filteredDomainKeys);
-  console.log(filteredData);
   stackedBars = stackGenerator(filteredData);
 
   let filterDays = d3.select("#filterDays")._groups[0][0].checked;
@@ -947,7 +953,6 @@ function filterVeryLongDistance() {
 function updateBars() {
   stackedBars = stackGenerator(filteredData);
   setScales(filteredData);
-  console.log(stackGenerator(filteredData));
 
   // Save the layers and collection of bars into variables
   const layers = svg
