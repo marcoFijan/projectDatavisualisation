@@ -632,24 +632,23 @@ ul .legendaItem input {
   border-radius: 0.2em;
 }
 
-.filterMapList .filterNight input[type="checkbox"]:checked + label {
-  border: 2px solid #054488;
-}
-
 .filterMapList .filterNight label {
-  border: 2px solid #054488;
+  border: 1px solid #054488;
+  color: #054488;
   background: linear-gradient(90deg, white, white, white, #054488, #0b5aaf);
   background-size: 400%;
 }
 
 .filterMapList .filterDay label {
-  border: 2px solid #f48a14;
+  border: 1px solid #f48a14;
+  color: #f48a14;
   background: linear-gradient(90deg, white, white, white, #f48a14, #f39831);
   background-size: 400%;
 }
 
 .filterMapList .filterRushHour label {
-  border: 2px solid rgba(190, 48, 39, 1);
+  border: 1px solid rgba(190, 48, 39, 1);
+  color: rgba(190, 48, 39, 1);
   background: linear-gradient(
     90deg,
     white,
@@ -685,6 +684,8 @@ ul .legendaItem input {
   width: 100%;
   padding: 0;
   justify-content: start;
+  overflow-y: auto;
+  height: 80%;
 }
 
 .feedbackSection li {
