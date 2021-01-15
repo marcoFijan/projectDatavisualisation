@@ -825,6 +825,7 @@ ul .legendaItem input {
   flex-direction: row;
   align-items: center;
   margin: 0.5rem 0;
+  font-size: 0.9rem;
 }
 
 .feedbackActions li a img {
@@ -836,4 +837,25 @@ ul .legendaItem input {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.sidebarFeedback form {
+  /* display: flex;
+  flex-wrap: wrap; */
+}
+
+.sidebarFeedback form br {
+  /* display: none; */
+}
+
+.sidebarFeedback input {
+  /* display: none; */
+}
+
+.sidebarFeedback label {
+  font-size: 0.9rem;
+}
+
+.sidebarFeedback input {
+  height: 0.9rem;
 }
