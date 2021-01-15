@@ -671,11 +671,6 @@ ul .legendaItem input {
   display: none;
 }
 
-/* .filterMapList li label p {
-  padding: 0.3em;
-  border: 1px solid black;
-} */
-
 .filterMapList input[type="checkbox"]:checked + label {
   background-position: right;
   color: white;
@@ -764,6 +759,10 @@ ul .legendaItem input {
   padding: 1em;
 }
 
+.feedbackSection li p {
+  padding: 0 1rem;
+}
+
 .feedbackSection label {
   text-align: center;
 }
@@ -813,4 +812,28 @@ ul .legendaItem input {
 
 .feedbackSection input {
   display: none;
+}
+
+.feedbackActions {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.feedbackActions li a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+
+.feedbackActions li a img {
+  width: 1.3rem;
+  margin-right: 1.5rem;
+}
+
+.sidebarFeedback {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }

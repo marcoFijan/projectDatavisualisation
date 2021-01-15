@@ -73,10 +73,41 @@
           <ul class="feedbackSection"></ul>
         </section>
       </section>
-      <section class="sidebar">
-        <h1>Filter routes</h1>
-        <h2>Selecteer het tijdstip die u op de kaart wilt tonen</h2>
-      </section>
+      <section class="sidebar sidebarFeedback">
+        <section>
+          <h1>Filter feedback</h1>
+          <h2>Filter op feedbackscore</h2>
+          <form>
+            <input type="radio" id="all" name="filterScore" value="all">
+            <label for="all">Alle feedback</label><br>
+            <input type="radio" id="bad" name="filterScore" value="bad">
+            <label for="bad">Negatieve feedback</label><br>
+            <input type="radio" id="good" name="filterScore" value="good">
+            <label for="good">Positieve feedback</label><br>
+            <input type="radio" id="neutral" name="filterScore" value="neutral">
+            <label for="neutral">Neutrale feedback</label> 
+          </form>
+          <h2>Filter op weekend</h2>
+          <form>
+            <input type="radio" id="allDays" name="filterDaytype" value="allDays">
+            <label for="allDays">Alle dagen</label><br>
+            <input type="radio" id="weekend" name="filterDaytype" value="weekend">
+            <label for="weekend">Weekend</label><br>
+            <input type="radio" id="byTheWeek" name="filterDaytype" value="byTheWeek">
+            <label for="byTheWeek">Doordeweeks</label><br>
+          </form>
+
+        </section>
+        <section>
+          <h1>Acties</h1>
+          <h2>Selecteer wat u wilt doen met de geselecteerde feedback</h2>
+          <ul class="feedbackActions">
+            <li><a><img src="resources/pdf.svg"/>Quick Note</a></li>
+            <li><a><img src="resources/pdf.svg"/>Download PDF File</a></li>
+            <li><a><img src="resources/xls.svg"/>Download XLS File</a></li>
+            <li><a><img src="resources/envelope.svg"/>Send E-mail</a></li>
+          </ul>
+        </section>
     </main>
 
     <footer></footer>

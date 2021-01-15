@@ -1,5 +1,5 @@
-const fs = require("fs");
-const localRingRingGeojson = require("../resources/ritten.geojson");
+// const fs = require("fs");
+// const localRingRingGeojson = require("../resources/ritten.geojson");
 
 const feedbackCollection = [
   {
@@ -174,27 +174,29 @@ const feedbackGeojson =
 const proxyURL = "https://cors-anywhere.herokuapp.com/";
 
 async function setupData() {
-  //   const feedbackData = await getData();
-  const feedbackData = fs.readFile(
-    localRingRingGeojson,
-    "utf8",
-    function (err, data) {
-      try {
-        data = JSON.parse(data);
-        feedbackFeatures = data.features;
-        createFeedbackList(feedbackFeatures);
-      } catch (e) {}
-    }
-  );
-  //   feedbackFeatures = feedbackData.features;
-  //   createFeedbackList(feedbackFeatures);
-  //   console.log(feedbackFeatures);
+  const feedbackData = await getData();
+  //   const feedbackData = fs.readFile(
+  //     localRingRingGeojson,
+  //     "utf8",
+  //     function (err, data) {
+  //       try {
+  //         data = JSON.parse(data);
+  //         feedbackFeatures = data.features;
+  //         createFeedbackList(feedbackFeatures);
+  //       } catch (e) {}
+  //     }
+  //   );
+  feedbackFeatures = feedbackData.features;
+  createFeedbackList(feedbackFeatures);
+  filterScore(feedbackFeatures);
+  filterDaytype(feedbackFeatures);
+  console.log(feedbackFeatures);
 }
 
 async function getData() {
   console.log("trying...");
-  //   const response = await fetch(proxyURL + feedbackGeojson);
-  const response = await fetch(proxyURL + "../resources/ritten.geojson");
+  const response = await fetch(proxyURL + feedbackGeojson);
+  //   const response = await fetch(proxyURL + "../resources/ritten.geojson");
   const json = await response.json();
   return await json;
 }
@@ -225,7 +227,7 @@ function createFeedbackList(feedbackFeatures) {
     let correctedHours = hours;
     let correctedMinutes = minutes;
     let correctedDay = day;
-    let correctedMonth = month;
+    let correctedMonth = month + 1;
 
     // add 0 if hours is less then 9
     if (hours.toString().length < 2) {
@@ -242,7 +244,8 @@ function createFeedbackList(feedbackFeatures) {
       correctedDay = "0" + correctedDay;
     }
 
-    if (month.toString().length < 2) {
+    console.log(month);
+    if (correctedMonth.toString().length < 2) {
       correctedMonth = "0" + correctedMonth;
     }
 
@@ -250,8 +253,15 @@ function createFeedbackList(feedbackFeatures) {
     const time = correctedHours + ":" + correctedMinutes;
     const calendarDate = correctedDay + "-" + correctedMonth + "-" + year;
 
+    // set dummy Text when feedback is empty
+    let feedbackDesc = feedback.properties.feedback;
+    if (!feedbackDesc) {
+      feedbackDesc =
+        "Geen feedback, dummy feedback - Al met al een prima ritje. Stoplichten konden iets beter afgesteld staan voor fietsers";
+    }
+
     // set content for elements
-    feedbackDescription.textContent = feedback.properties.feedback;
+    feedbackDescription.textContent = feedbackDesc;
     feedbackTime.textContent = time;
     feedbackDate.textContent = calendarDate;
     feedbackDistance.textContent = feedback.properties.distance + "km";
@@ -284,6 +294,53 @@ function createFeedbackList(feedbackFeatures) {
 }
 
 setupData();
+
+// function orderFeedbackListener(feedbackFeatures) {
+//   const dropDown = document.querySelector("#orderFeedback");
+
+//   dropDown.addEventListener("change", (e) => {
+//     let value = e.target.value;
+//     if (value === "day") {
+//       console.log("its wednesday my dudes");
+//     } else if (value === "time") {
+//       console.log("its time to stop");
+//     } else if (value === "score") {
+//       console.log("your suck");
+//       orderScore(feedbackFeatures);
+//     }
+//   });
+// }
+
+// function orderScore(feedbackFeatures) {
+//   let currentFeedback;
+
+//   let feedbackFeaturesOrdered = feedbackFeatures.map((feedback) => {
+//     // let orderedFeedback;
+
+//     return feedbackFeatures.forEach((feedbackFilter) => {
+//       // Get and convert date
+//       let score1 = feedback.properties["feedback score"];
+//       let score2 = feedbackFilter.properties["feedback score"];
+
+//       if (!score1) {
+//         score1 = 5;
+//       }
+
+//       if (!score2) {
+//         score2 = 5;
+//       }
+
+//       console.log(score1, score2);
+//       if (score1 > score2) {
+//         score1 = score2;
+//       }
+//       return score1;
+//     });
+
+//     // return orderedFeedback;
+//   });
+//   console.log(feedbackFeaturesOrdered);
+// }
 
 // feedbackCollection.forEach((feedback) => {
 //   const listItem = document.createElement("li");
@@ -321,12 +378,70 @@ setupData();
 //   feedbackSection.appendChild(listItem);
 // });
 
+function filterScore(feedbackFeatures) {
+  let filteredFeedback;
+
+  document.querySelectorAll('input[name="filterScore"]').forEach((input) => {
+    input.addEventListener("click", function (e) {
+      const value = e.target.value;
+      if (value === "good") {
+        filteredFeedback = feedbackFeatures.filter((feedback) => {
+          return feedback.properties["feedback score"] === 3;
+        });
+      } else if (value === "bad") {
+        filteredFeedback = feedbackFeatures.filter((feedback) => {
+          return feedback.properties["feedback score"] === 1;
+        });
+      } else if (value === "neutral") {
+        filteredFeedback = feedbackFeatures.filter((feedback) => {
+          return feedback.properties["feedback score"] === 2;
+        });
+      } else {
+        filteredFeedback = feedbackFeatures;
+      }
+      removeChilds(feedbackSection);
+      createFeedbackList(filteredFeedback);
+    });
+  });
+}
+
+function filterDaytype(feedbackFeatures) {
+  let filteredDaytype;
+
+  document.querySelectorAll('input[name="filterDaytype"]').forEach((input) => {
+    input.addEventListener("click", function (e) {
+      const value = e.target.value;
+      if (value === "weekend") {
+        filteredDaytype = feedbackFeatures.filter((feedback) => {
+          const day = new Date(feedback.properties.start).getDay();
+          return day === 6 || day === 0;
+        });
+      } else if (value === "byTheWeek") {
+        filteredDaytype = feedbackFeatures.filter((feedback) => {
+          const day = new Date(feedback.properties.start).getDay();
+          return day < 6;
+        });
+      } else {
+        filteredDaytype = feedbackFeatures;
+      }
+      removeChilds(feedbackSection);
+      createFeedbackList(filteredDaytype);
+    });
+  });
+}
+
+function removeChilds(parent) {
+  while (parent.lastChild) {
+    parent.removeChild(parent.lastChild);
+  }
+}
+
 function getFeedbackIcon(feedbackScore) {
   if (feedbackScore === 2) {
     return "./resources/score_neutral.svg";
-  } else if (feedbackScore === 3) {
-    return "./resources/score_bad.svg";
   } else if (feedbackScore === 1) {
+    return "./resources/score_bad.svg";
+  } else if (feedbackScore === 3) {
     return "./resources/score_good.svg";
   } else {
     return "./resources/score_unknown.svg";
