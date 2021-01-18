@@ -18,7 +18,7 @@ async function setupData() {
   filteredFeedbackFeatures = feedbackFeatures;
   filterScore(filteredFeedbackFeatures);
   filterDaytype(filteredFeedbackFeatures);
-  console.log(filteredFeedbackFeatures);
+  openPopUp();
 }
 
 async function getData() {
@@ -242,4 +242,48 @@ function getFeedbackIcon(feedbackScore) {
 
 function goBack() {
   window.history.back();
+}
+
+function openPopUp() {
+  // set variables
+  const feedbackActions = document.querySelectorAll(".feedbackActions input");
+  const feedbackInputs = document.querySelectorAll(".feedbackSection li input");
+  const sentToButton = document.querySelector("#sentTo");
+  const contentHiderPopUp = document.querySelector(".contentHiderPopUp");
+  const popUp = document.querySelector(".popUp");
+  const popUpSent = document.querySelector(".popUpSent");
+  const sentFeedbackButton = document.querySelector(".sentButton");
+  const exitButton1 = document.querySelector(".popUp>div");
+  const exitButton2 = document.querySelector(".popUpSent>div");
+
+  // enable actionbuttons when one or more feedback has been selected
+  feedbackInputs.forEach((input) => {
+    input.addEventListener("click", function (e) {
+      feedbackActions.forEach((feedbackAction) => {
+        feedbackAction.disabled = false;
+      });
+    });
+  });
+
+  sentToButton.addEventListener("click", function (e) {
+    popUp.style.display = "block";
+    contentHiderPopUp.style.display = "block";
+  });
+
+  sentFeedbackButton.addEventListener("click", function (e) {
+    popUp.style.display = "none";
+    popUpSent.style.display = "block";
+  });
+
+  exitButton1.addEventListener("click", function (e) {
+    popUp.style.display = "none";
+    popUpSent.style.display = "none";
+    contentHiderPopUp.style.display = "none";
+  });
+
+  exitButton2.addEventListener("click", function (e) {
+    popUp.style.display = "none";
+    popUpSent.style.display = "none";
+    contentHiderPopUp.style.display = "none";
+  });
 }

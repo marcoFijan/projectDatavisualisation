@@ -69,7 +69,6 @@
             <p>Gedetaileerde blik op de routes</p>
             Kaart
           </a>
-
           <a href="feedback.html" class="dashboardButton">
             <img src="resources/feedback.svg" alt="Feedback icon" />
             <p>Feedbackoverzicht van de routes</p>
@@ -84,12 +83,38 @@
           <div id="map" class="mapHome"></div>
         </section>
       </section>
-      <section class="sidebar">
-        <h1>Aantal fietsritten</h1>
-        <h2>In het weekend of doordeweeks</h2>
-        <svg class="weekendChart"></svg>
-        <h1>Feedback</h1>
-        <h2>Ontvangen feedback van fietsers in Amsterdam</h2>
+
+      <section class="sidebar sidebarHome">
+        <article>
+          <h1>Aantal fietsritten</h1>
+          <h2>In het weekend of doordeweeks</h2>
+          <div class="bikeRoutes">
+            <article class="amountBikeRoutes">
+              <h3>2417</h3>
+              <p>Fietsritten in totaal</p>
+            </article>
+            <article class="amountDistance">
+              <h3>14400km</h3>
+              <p>In totaal gefietst deze maand</p>
+            </article>
+          </div>
+        </article>
+        <article>
+          <h1>Feedback</h1>
+          <h2>Nieuwste ontvangen feedback van fietsers in Amsterdam</h2>
+          <ul class="feedbackHomeSection feedbackSection">
+            <li>
+              <p>11-01-2021</p>
+              <p>Slecht asfalt en lang moeten wach...</p>
+              <img src="./resources/score_bad.svg" />
+            </li>
+            <li>
+              <p>13-01-2021</p>
+              <p>Heerlijk stukje gefietst, POWERRRR!</p>
+              <img src="./resources/score_good.svg" />
+            </li>
+          </ul>
+        </article>
       </section>
     </main>
 

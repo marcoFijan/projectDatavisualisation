@@ -140,7 +140,8 @@ strong {
   padding-top: 1em;
 }
 
-.logInButton {
+.logInButton,
+.sentButton {
   background: linear-gradient(
     90deg,
     rgba(190, 48, 39, 1),
@@ -159,8 +160,10 @@ strong {
   border-radius: 0.2em;
 }
 
-.logInButton:hover {
+.logInButton:hover,
+.sentButton:hover {
   background-position: right;
+  text-decoration: none;
 }
 
 .forgotPassword {
@@ -335,6 +338,7 @@ main {
   padding: 0;
   margin: 0.5em 0;
   font-size: 0.7em;
+  /* opacity: 0; */
 }
 
 .dashboardButton:hover img {
@@ -359,6 +363,12 @@ main {
   border-radius: 0.2em;
   padding: 1rem;
   box-sizing: border-box;
+}
+
+.sidebarHome {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .sidebar h1,
@@ -420,12 +430,12 @@ line {
 } */
 
 .weekendChart .arc:first-child text {
-  text-shadow: 1px 1px 2px #f48a14;
+  text-shadow: 1px 1px 2px white;
   fill: black;
 }
 
 .weekendChart .arc:last-child text {
-  text-shadow: 1px 1px 2px #be3027;
+  text-shadow: 1px 1px 2px white;
   fill: black;
 }
 
@@ -747,6 +757,7 @@ ul .legendaItem input {
   width: 100%;
   padding: 0;
   justify-content: start;
+  /* align-items: ; */
   overflow-y: auto;
   height: 80%;
 }
@@ -759,8 +770,20 @@ ul .legendaItem input {
   padding: 1em;
 }
 
+.feedbackHomeSection li {
+  border-bottom: 0.6px solid #cacaca;
+  display: grid;
+  grid-template-columns: 3fr 6fr 1fr;
+  align-items: center;
+  padding: 0;
+}
+
 .feedbackSection li p {
-  padding: 0 1rem;
+  padding: 0 0.5rem;
+}
+
+.feedbackHomeSection ul {
+  margin: 0 !important;
 }
 
 .feedbackSection label {
@@ -820,7 +843,7 @@ ul .legendaItem input {
   margin: 0;
 }
 
-.feedbackActions li a {
+.feedbackActions li label {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -828,9 +851,26 @@ ul .legendaItem input {
   font-size: 0.9rem;
 }
 
-.feedbackActions li a img {
+.feedbackActions li label img {
   width: 1.3rem;
   margin-right: 1.5rem;
+}
+
+.feedbackActions input {
+  display: none;
+}
+
+.feedbackActions input:disabled + label {
+  opacity: 0.5;
+}
+
+.feedbackActions input:disabled + label:hover {
+  text-decoration: none;
+  opacity: 0.5;
+}
+
+.feedbackActions label:hover {
+  text-decoration: underline;
 }
 
 .sidebarFeedback {
@@ -858,4 +898,207 @@ ul .legendaItem input {
 
 .sidebarFeedback input {
   height: 0.9rem;
+}
+
+.contentHiderPopUp {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  right: 0;
+  background: rgb(151, 151, 151);
+  opacity: 0.75;
+  display: none;
+}
+
+.popUp,
+.popUpSent {
+  position: absolute;
+  min-height: 33em;
+  width: 60%;
+  height: 70vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border-radius: 0.2rem;
+  padding: 1.2rem;
+  box-sizing: border-box;
+  -webkit-box-shadow: 0px 5px 10px 0px grey;
+  box-shadow: 0px 3px 10px 0px grey;
+  display: none;
+}
+
+.popUp h1,
+.popUpSent h1 {
+  width: 95%;
+  padding-bottom: 0.8em;
+  font-size: 1.2em;
+  border-bottom: 1px solid #cacaca;
+  margin: 0;
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+.popUp > div,
+.popUpSent > div {
+  width: 3%;
+  font-size: 2.5em;
+  display: inline-block;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-align: right;
+  margin-top: -1em;
+  cursor: pointer;
+  transition: color 0.1s ease-in-out;
+}
+
+.popUp > div:hover,
+.popUpSent > div:hover {
+  color: #be3027;
+}
+
+.popUp h2 {
+  font-size: 1em;
+}
+
+.popUp .message {
+  margin-top: 2rem;
+}
+
+.popUp ul {
+  list-style: none;
+  padding: 0;
+  /* width: 100%; */
+}
+
+.popUp ul li {
+  display: grid;
+  grid-template-columns: 2fr 5fr 1fr;
+  border-bottom: 0.5px solid #cacaca;
+  align-items: center;
+  grid-gap: 1rem;
+}
+
+.popUp ul li p {
+  box-sizing: border-box;
+  /* padding: 0 1em 0 0; */
+  font-size: 0.8em;
+}
+
+.popUp ul li img {
+  height: 2em;
+  /* padding: 0 2em 0 1em; */
+  box-sizing: border-box;
+}
+
+.popUp > section {
+  display: grid;
+  grid-template-columns: 10fr 7fr;
+  grid-gap: 4rem;
+  padding: 1rem;
+  box-sizing: border-box;
+  height: 95%;
+}
+
+/* .popUp section ul section {
+  width: 13em;
+} */
+
+.popUp section section p {
+  margin: 0.3rem 0;
+}
+
+.popUp section:first-child section {
+  margin-right: 3em;
+  box-sizing: border-box;
+}
+
+.popUp section section p strong {
+  font-weight: bold;
+}
+
+.popUp section textarea {
+  width: 100%;
+  height: 6em;
+  box-sizing: border-box;
+}
+
+.popUp ul li section {
+  margin: 0 !important;
+}
+
+.sentMessageSection {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sentMessageSection ul li {
+  border: none;
+}
+
+.sentMessageSection ul li label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  border: 1px solid white;
+  border-bottom: 0.5px solid #cacaca;
+  transition: border 0.3s ease-in-out;
+  width: 20rem;
+}
+
+.sentMessageSection ul li label:hover {
+  border: 1px solid #cacaca;
+}
+
+.sentMessageSection ul li img {
+  height: 4em;
+  width: 6.5em;
+  margin-right: 1rem;
+}
+
+.sentMessageSection ul li h2 {
+  margin: 0;
+}
+
+.sentMessageSection ul li p {
+  color: grey;
+}
+
+.sentMessageSection input {
+  display: none;
+}
+
+.sentMessageSection input[type="checkbox"]:checked + label {
+  border: 2px solid #be3027;
+}
+
+.sentButton {
+  margin: 0 auto;
+  min-width: 12em;
+}
+
+.popUpSent h2 {
+  font-size: 2em;
+  text-align: center;
+}
+
+.popUpSent h2 strong {
+  color: #be3027;
+}
+
+.popUpSent img {
+  width: 30%;
+  margin: 0 auto;
+  display: block;
+}
+
+.popUpSent {
+  /* flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 4em; */
 }

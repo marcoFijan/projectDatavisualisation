@@ -72,6 +72,96 @@
           </section>
           <ul class="feedbackSection"></ul>
         </section>
+        <div class="contentHiderPopUp"></div>
+        <section class="popUp"> 
+          <h1>Feedback doorsturen</h1>
+          <div>x</div>
+          <section>
+            <section>
+              <h2>Feedback gebruiker</h2>
+              <ul>
+                <li>
+                  <section><p><strong>11-01-2020</strong></p><p>12:34</p></section>
+                  <p>Veel drukte. Ik moest rustiger gaan fietsen. Veel mensen op de fietspaden, stoplichten duurde lang en slecht asfalt</p>
+                  <img src="resources/score_bad.svg"/>
+                </li>
+                <li>
+                  <section><p><strong>11-01-2020</strong></p><p>12:46</p></section>
+                  <p>Heerlijk fietsritje. Ik had wind mee en het was niet te druk.</p>
+                  <img src="resources/score_good.svg"/>
+                </li>
+                <li>
+                  <section><p><strong>11-01-2020</strong></p><p>12:48</p></section>
+                  <p>Ging wel aardig. Was wel rotweer. Asfalt werd erg glad door de regen</p>
+                  <img src="resources/score_neutral.svg"/>
+                </li>
+              </ul>
+              <h2 class="message">Uw opmerking</h2>
+              <textarea></textarea>
+            </section>
+            <section class="sentMessageSection">
+              <ul>
+                <li>
+                  <input type="checkbox" id="selectPerson1" name="selectPerson1" />
+                  <label for="selectPerson1">
+                    <img src="resources/Irene.JPG"/>
+                    <section>
+                      <h2>Irene Dunnen</h2>
+                      <p>Projectleider</p>
+                    </section>
+                  </label>
+                </li>
+                <li>
+                  <input type="checkbox" id="selectPerson2" name="selectPerson2" />
+                  <label for="selectPerson2">
+                    <img src="resources/Mark.JPG"/>
+                    <section>
+                      <h2>Mark van Eindhoven</h2>
+                      <p>Projectleider</p>
+                    </section>
+                  </label>
+                </li>
+                <li>
+                  <input type="checkbox" id="selectPerson3" name="selectPerson3" />
+                  <label for="selectPerson3">
+                    <img src="resources/Jeremy.JPG"/>
+                    <section>
+                      <h2>Jeremy Hoogen</h2>
+                      <p>Adviseur</p>
+                    </section>
+                  </label>
+                </li>
+                <li>
+                  <input type="checkbox" id="selectPerson4" name="selectPerson4" />
+                  <label for="selectPerson4">
+                    <img src="resources/Anne.JPG"/>
+                    <section>
+                      <h2>Anne Hoekx</h2>
+                      <p>Beheer en onderhoud</p>
+                    </section>
+                  </label>
+                </li>
+                <li>
+                  <input type="checkbox" id="selectPerson5" name="selectPerson5" />
+                  <label for="selectPerson5">
+                    <img src="resources/Marianne.JPG"/>
+                    <section>
+                      <h2>Marianne Janssen</h2>
+                      <p>Beheer en onderhoud</p>
+                    </section>
+                  </label>
+                </li>
+              </ul>
+              <a class="sentButton">Verstuur</a>
+            </section>
+          </section>
+        </section>
+        <section class="popUpSent">
+          <h1>Feedback doorsturen</h1>
+          <div>x</div>
+            <h2>Uw <strong>bericht</strong> is verzonden!</h2>
+            <img src="resources/succes.JPG"/>
+        </section>
       </section>
       <section class="sidebar sidebarFeedback">
         <section>
@@ -102,10 +192,34 @@
           <h1>Acties</h1>
           <h2>Selecteer wat u wilt doen met de geselecteerde feedback</h2>
           <ul class="feedbackActions">
-            <li><a><img src="resources/pdf.svg"/>Quick Note</a></li>
-            <li><a><img src="resources/pdf.svg"/>Download PDF File</a></li>
-            <li><a><img src="resources/xls.svg"/>Download XLS File</a></li>
-            <li><a><img src="resources/envelope.svg"/>Send E-mail</a></li>
+            <li>
+              <input type="checkbox" id="sentTo" name="sentTo" disabled/>
+              <label for="sentTo">
+                <img src="resources/right-2.svg"/>
+                Doorsturen naar medewerker
+              </label>
+            </li>
+            <li>
+              <input type="checkbox" id="downloadPDF" name="downloadPDF" disabled/>
+              <label for="downloadPDF">
+                <img src="resources/pdf.svg"/>
+                Download PDF File
+              </label>
+            </li>
+            <li>
+              <input type="checkbox" id="downloadXLS" name="downloadXLS" disabled/>
+              <label for="downloadXLS">
+                <img src="resources/xls.svg"/>
+                Download XLS File
+              </label>
+            </li>
+            <li>
+              <input type="checkbox" id="sendEmail" name="sendEmail" disabled/>
+              <label for="sendEmail">
+                <img src="resources/envelope.svg"/>
+                Verstuur E-mail
+              </label>
+            </li>           
           </ul>
         </section>
     </main>
