@@ -850,6 +850,7 @@ ul .legendaItem input {
   align-items: center;
   margin: 0.5rem 0;
   font-size: 0.9rem;
+  transition: all 0.5s ease-in-out;
 }
 
 .feedbackActions li label img {
@@ -867,30 +868,23 @@ ul .legendaItem input {
 
 .feedbackActions input:disabled + label:hover {
   text-decoration: none;
+  font-weight: 400;
+  padding: 0;
   opacity: 0.5;
+  color: black;
 }
 
 .feedbackActions label:hover {
-  text-decoration: underline;
+  cursor: pointer;
+  padding-left: 1em;
+  font-weight: bold;
+  color: #be3027;
 }
 
 .sidebarFeedback {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-
-.sidebarFeedback form {
-  /* display: flex;
-  flex-wrap: wrap; */
-}
-
-.sidebarFeedback form br {
-  /* display: none; */
-}
-
-.sidebarFeedback input {
-  /* display: none; */
 }
 
 .sidebarFeedback label {
@@ -1096,10 +1090,4 @@ ul .legendaItem input {
   width: 30%;
   margin: 0 auto;
   display: block;
-}
-
-.popUpSent {
-  /* flex-direction: column;
-  justify-content: space-between;
-  padding-bottom: 4em; */
 }
