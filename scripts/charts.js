@@ -1108,7 +1108,7 @@ function createPieChart() {
     .attr("transform", `translate(${250 / 2}, ${250 / 2})`);
 
   // set colorscale
-  const color = d3.scaleOrdinal(["#d87a73", "#c05048"]);
+  const color = d3.scaleOrdinal(["#f48a14", "#be3027"]);
 
   // set the data and turn sorting off
   const pie = d3

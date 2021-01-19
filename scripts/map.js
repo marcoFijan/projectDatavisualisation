@@ -79,7 +79,7 @@ function drawMap() {
 
   map.on("load", function () {
     if (document.getElementById("00-06").checked) {
-      drawMapLayer(map, filteredData0006, "0006", "#792987");
+      drawMapLayer(map, filteredData0006, "0006", "#054488");
     }
 
     if (document.getElementById("06-07").checked) {
@@ -131,27 +131,27 @@ function drawMap() {
     }
 
     if (document.getElementById("18-19").checked) {
-      drawMapLayer(map, filteredData1819, "1819", "#792987");
+      drawMapLayer(map, filteredData1819, "1819", "#054488");
     }
 
     if (document.getElementById("19-20").checked) {
-      drawMapLayer(map, filteredData1920, "1920", "#792987");
+      drawMapLayer(map, filteredData1920, "1920", "#054488");
     }
 
     if (document.getElementById("20-21").checked) {
-      drawMapLayer(map, filteredData2021, "2021", "#792987");
+      drawMapLayer(map, filteredData2021, "2021", "#054488");
     }
 
     if (document.getElementById("21-22").checked) {
-      drawMapLayer(map, filteredData2122, "2122", "#792987");
+      drawMapLayer(map, filteredData2122, "2122", "#054488");
     }
 
     if (document.getElementById("22-23").checked) {
-      drawMapLayer(map, filteredData2223, "2223", "#792987");
+      drawMapLayer(map, filteredData2223, "2223", "#054488");
     }
 
     if (document.getElementById("23-24").checked) {
-      drawMapLayer(map, filteredData2223, "2324", "#792987");
+      drawMapLayer(map, filteredData2223, "2324", "#054488");
     }
   });
 }
@@ -171,8 +171,8 @@ function drawMapLayer(map, filteredData, id, color) {
     },
     paint: {
       "line-color": color,
-      "line-width": 1.4,
-      "line-opacity": 0.5,
+      "line-width": 2.5,
+      "line-opacity": 0.3,
     },
   });
 }

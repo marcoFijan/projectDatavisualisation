@@ -112,6 +112,7 @@ strong {
 }
 
 .signInDetail > h1 {
+  font-size: 2em;
   max-width: 8em;
   color: #818181;
 }

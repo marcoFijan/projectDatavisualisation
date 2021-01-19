@@ -38,7 +38,7 @@ function drawMap(fetchedRingRingData) {
       paint: {
         "line-color": "#c42116",
         "line-width": 0.7,
-        "line-opacity": 0.1,
+        "line-opacity": 1,
       },
     });
   });
