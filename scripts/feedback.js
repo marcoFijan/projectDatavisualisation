@@ -85,7 +85,7 @@ function createFeedbackList(feedbackFeatures) {
     let feedbackDesc = feedback.properties.feedback;
     if (!feedbackDesc) {
       feedbackDesc =
-        "Geen feedback, dummy feedback - Al met al een prima ritje. Stoplichten konden iets beter afgesteld staan voor fietsers";
+        "Al met al een prima ritje. Stoplichten konden iets beter afgesteld staan voor fietsers";
     }
 
     // set content for elements
@@ -101,7 +101,7 @@ function createFeedbackList(feedbackFeatures) {
     saveCheckbox.id = "saveFeedback" + counter;
     saveCheckbox.name = "saveFeedback" + counter;
     saveLabel.htmlFor = "saveFeedback" + counter;
-    saveLabel.textContent = "Bewaren";
+    saveLabel.textContent = "Selecteer";
 
     feedbackTime.classList.add("feedbackTime");
     feedbackDistance.classList.add("feedbackDistance");
@@ -147,6 +147,7 @@ function filterScore(feedbackFeatures) {
       removeChilds(feedbackSection);
       const filteredComplete = checkFilterDaytype(filteredFeedback);
       createFeedbackList(filteredComplete);
+      openPopUp();
     });
   });
 }
