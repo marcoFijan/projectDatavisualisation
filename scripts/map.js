@@ -427,4 +427,8 @@ function filter2324() {
   drawMap();
 }
 
+function goBack() {
+  window.history.back();
+}
+
 setupMapData();
