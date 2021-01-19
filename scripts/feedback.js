@@ -19,6 +19,7 @@ async function setupData() {
   filterScore(filteredFeedbackFeatures);
   filterDaytype(filteredFeedbackFeatures);
   openPopUp();
+  goBack();
 }
 
 async function getData() {
@@ -175,6 +176,7 @@ function filterDaytype(feedbackFeatures) {
       removeChilds(feedbackSection);
       const filteredComplete = checkFilterScore(filteredDaytype);
       createFeedbackList(filteredComplete);
+      openPopUp();
     });
   });
 }

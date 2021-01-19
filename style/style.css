@@ -433,11 +433,21 @@ line {
 .weekendChart .arc:first-child text {
   text-shadow: 1px 1px 2px white;
   fill: black;
+  transform: translate(20px, -70px);
+  -ms-transform: translate(20px, -70px); /* IE 9 */
+  -webkit-transform: translate(20px, -70px); /* Safari and Chrome */
+  -o-transform: translate(20px, -70px); /* Opera */
+  -moz-transform: translate(20px, -70px); /* Firefox */
 }
 
 .weekendChart .arc:last-child text {
-  text-shadow: 1px 1px 2px white;
-  fill: black;
+  text-shadow: 1px 1px 2px black;
+  fill: white;
+  transform: translate(-40px, 90px);
+  -ms-transform: translate(-40px, 90px); /* IE 9 */
+  -webkit-transform: translate(-40px, 90px); /* Safari and Chrome */
+  -o-transform: translate(-40px, 90px); /* Opera */
+  -moz-transform: translate(-40px, 90px); /* Firefox */
 }
 
 .bikeRoutes {
@@ -996,10 +1006,6 @@ ul .legendaItem input {
   box-sizing: border-box;
   height: 95%;
 }
-
-/* .popUp section ul section {
-  width: 13em;
-} */
 
 .popUp section section p {
   margin: 0.3rem 0;

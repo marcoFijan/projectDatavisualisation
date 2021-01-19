@@ -510,21 +510,6 @@ function setColorScale() {
 
 // Set the scales for the chart
 function setScales(data) {
-  // colorScale = d3
-  //   .scaleOrdinal()
-  //   .domain([
-  //     "veryLongDistance",
-  //     "shortDistance",
-  //     "mediumDistance",
-  //     "longDistance",
-  //     "veryLongDistance",
-  //   ])
-  //   .range(["#F48A14", "#792987", "#BE3027", "#026031", "#054488"]);
-  // colorScale = d3
-  //   .scaleOrdinal()
-  //   .domain(["shortDuration", "mediumDuration", "longDuration"])
-  //   .range(["#F48A14", "#BE3027", "#054488"]);
-
   scaleY = d3
     .scaleLinear()
     .domain([
@@ -646,43 +631,6 @@ function checkInput() {
     .select("#filterVeryLongDistance")
     .on("click", filterVeryLongDistance);
 }
-
-// ## Update function for removing the bigest bar ##
-// const filterBigBars = function () {
-//   let filterOn = d3.select("#filterBigBars")._groups[0][0].checked;
-//   console.log(filterOn);
-//   if (filterOn) {
-//     let total = 0;
-//     data.forEach((route) => {
-//       total =
-//         total +
-//         route.veryLongDistance +
-//         route.longDistance +
-//         route.mediumDistance +
-//         route.shortDistance +
-//         route.veryShortDistance;
-//     });
-//     let average = total / timeStampsList.length;
-
-//     filteredData = data.filter((route) => {
-//       const total =
-//         route.veryLongDistance +
-//         route.longDistance +
-//         route.mediumDistance +
-//         route.shortDistance +
-//         route.veryShortDistance;
-//       return total <= average;
-//     });
-//   } else {
-//     filteredData = data;
-//     console.log(d3.select("#filterUnknown")._groups[0][0].checked);
-//     if (d3.select("#filterUnknown")._groups[0][0].checked) {
-//       filterOnDays();
-//     }
-//     // checkInput()
-//   }
-//   updateBars();
-// };
 
 // ## Update function for removing the unknown province bar ##
 function filterOnDays() {
@@ -1108,7 +1056,7 @@ function createPieChart() {
     .attr("transform", `translate(${250 / 2}, ${250 / 2})`);
 
   // set colorscale
-  const color = d3.scaleOrdinal(["#f48a14", "#be3027"]);
+  const color = d3.scaleOrdinal(["#cacaca", "#4d4d4d"]);
 
   // set the data and turn sorting off
   const pie = d3
@@ -1120,13 +1068,13 @@ function createPieChart() {
   const path = d3
     .arc()
     .outerRadius(radius)
-    .innerRadius(radius - 40);
+    .innerRadius(radius - 60);
 
   // position the label
   const label = d3
     .arc()
     .outerRadius(radius)
-    .innerRadius(radius - 20);
+    .innerRadius(radius - 100);
 
   // data join the piechart
   const pies = g
@@ -1145,9 +1093,9 @@ function createPieChart() {
   // position labels
   pies
     .append("text")
-    .attr("transform", function (d) {
-      return `translate(${label.centroid(d)})`;
-    })
+    // .attr("transform", function (d) {
+    //   return `translate(${label.centroid(d)})`;
+    // })
     .text((d) => d.data.dayType);
 }
 
