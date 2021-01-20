@@ -13,6 +13,11 @@ strong {
   color: black;
 }
 
+h1 {
+  font-family: "Varela Round", sans-serif;
+  font-weight: 900;
+}
+
 /* ########################### - Sign In styling - ############################ */
 .signInWrapper {
   width: 100%;
@@ -80,27 +85,7 @@ strong {
   position: absolute;
   left: -50%;
   top: 40vh;
-  /* transform: translateX(-50%); */
 }
-/* 
-.overSignInDetail {
-  position: absolute;
-  right: 0;
-  flex-grow: 1;
-  min-width: 40%;
-  height: 100%;
-  background: #c42116;
-  color: white;
-  fill: white;
-  box-sizing: border-box;
-  border-left: 1px solid white;
-  padding: 5em;
-  justify-content: center;
-}
-
-.overSignInDetail img {
-  fill: white;
-} */
 
 .signInDetail {
   flex-grow: 1;
